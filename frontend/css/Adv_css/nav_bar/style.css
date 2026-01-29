@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    anchor-name: --some-anchor;
+}
+
+.box{
+    height: 50px;
+    width: 120px;
+    border-radius: 10px;
+}
+
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
+}
+
+.green{
+    background-color:green;
+
+}
+
+.box:hover{
+    anchor-name: --some-anchor;
+}
+.anchor{
+    /* height: 50px;
+    width: 50px; */
+    border-radius: 10px;
+    background-color:wheat;
+    position: absolute;
+    position-anchor:--some-anchor;
+    top: anchor(top);
+    left: anchor(left);
+    bottom: anchor(bottom);
+    right: anchor(right);
+    pointer-events: none;
+
+    transition: all 0.3s ease-in;
+    /* it will give us the opposite color  */
+    mix-blend-mode:exclusion; 
+
+}

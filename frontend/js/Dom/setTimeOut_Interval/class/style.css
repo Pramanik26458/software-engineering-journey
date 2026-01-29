@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+
+main{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: rgb(255, 255, 255);
+}
+
+button{
+    height: 40px;
+    width: 100px;
+    font-weight: 700;
+    color: white;
+    background-color: red;
+    border: none;
+    margin: 20px;
+}

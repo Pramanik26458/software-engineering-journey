@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+
+}
+
+main{
+    height: 200%;
+    width: 100%;
+    background-color: black;
+    cursor: none;
+
+    
+}
+#box{
+    height: 200px;
+    width: 200px;
+    background-color: rgb(46, 42, 171);
+}
+.cursor{
+    position:fixed;
+    
+
+}
+
+.cursor img{
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}

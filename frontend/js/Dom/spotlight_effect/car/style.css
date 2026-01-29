@@ -1,0 +1,225 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body{
+  height: 100%;
+  overflow: hidden; 
+}
+
+:root{
+  --x: 50%;
+  --y: 50%;
+}
+
+body{
+  font-family: 'Inter', sans-serif;
+  background: #02020a;
+  color: #fff;
+}
+
+.spotlight{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4; /* above background, below content */
+  background: radial-gradient(
+    500px at var(--x) var(--y),
+    rgba(255, 255, 255, 0.177),
+    rgb(0, 0, 0),
+    rgba(0, 0, 0, 0.95) 80%
+  );
+}
+
+.bg-gradient{
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, #00e5ff22, transparent 40%),
+    radial-gradient(circle at 80% 70%, #7f00ff22, transparent 45%);
+  z-index: 0;
+}
+
+.bg-noise{
+  position: fixed;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.light{
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  filter: blur(120px);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.l1{
+  background: #00e5ff;
+  top: 10%;
+  left: -100px;
+}
+
+.l2{
+  background: #7f00ff;
+  bottom: -100px;
+  right: -100px;
+}
+
+nav{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.logo{
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 4px;
+}
+
+.nav-links a{
+  margin-left: 30px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.nav-links a:hover{
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.941);
+}
+
+main{
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1.2fr 1.6fr 1fr;
+  align-items: center;
+  padding: 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.left h2{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 64px;
+  line-height: 1.05;
+}
+
+.label{
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #00e5ff;
+}
+
+.left p{
+  margin: 20px 0;
+  max-width: 380px;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+.actions{
+  display: flex;
+  gap: 20px;
+}
+
+.primary{
+  padding: 14px 40px;
+  background: #00e5ff;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+}
+
+.ghost{
+  padding: 14px 40px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.stats{
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.stats strong{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 26px;
+}
+
+.stats span{
+  display: block;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.center{
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.center img{
+  width: 700px;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 60px 100px rgba(0,0,0,0.9));
+}
+
+.shadow-line{
+  position: absolute;
+  bottom: 30%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+}
+
+.right{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.spec h3{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+}
+
+.spec p{
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.watermark{
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 120px;
+  letter-spacing: 20px;
+  color: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+
+@keyframes float{
+  0%,100%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(-25px);
+  }
+}

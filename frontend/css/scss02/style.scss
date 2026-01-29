@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+.red{
+    height:500px;
+    width: 400px;
+
+    background-color: red;
+
+    .blue{
+        height: 50%;
+        width: 50%; // it will takes the parents width 100% =>400px
+        background-color: blue;
+    }
+}
+html{
+font-size:clamp(14px 1vw 18px);
+}
+h1{
+    font-size: 10rem;
+}

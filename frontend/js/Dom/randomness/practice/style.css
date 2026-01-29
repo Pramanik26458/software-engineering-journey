@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+
+main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hero {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(200px);
+  padding: 50px 60px;
+  border-radius: 20px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease;
+  
+}
+
+
+.hero h2 {
+  font-size: 18px;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+
+.hero h1 {
+  margin: 15px 0;
+  font-size: 42px;
+  padding: 15px 30px;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+
+
+#captain {
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #cebba9;
+}
+
+/* Button */
+button {
+  padding: 14px 35px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffcc00, #ff8800);
+  color: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 140, 0, 0.6);
+}
+
+
+.hero,
+main,
+h1 {
+  transition: background-color 0.5s ease;
+}
+h1 {
+  background: linear-gradient(135deg, #ea6c4c, #b97939);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#teamName {
+  font-weight:bolder;
+  letter-spacing: px;
+  text-transform: uppercase;
+
+}
+

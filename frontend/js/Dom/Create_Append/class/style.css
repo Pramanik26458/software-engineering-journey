@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+main{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    gap: 20px;
+    justify-content:end;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom:75px;
+    /* background-color: white; */
+    
+
+}
+div{
+    position: absolute;
+    color: aquamarine;
+    z-index:8;
+}
+
+h1{
+    font-size: 20px;
+    white-space: nowrap;
+    position: relative;
+    z-index:10;
+    color: white;
+
+}
+
+
+button{
+    background-color: red;
+    color: white;
+
+    height: 60px;
+    width: 160px;
+
+    border-radius: 5px;
+    border: 2px solid darkred;
+
+    position: relative;
+    z-index: 11;
+
+    font-weight: 700;
+    font-size: large;
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+button:active{
+    transform: scale(0.95);
+}

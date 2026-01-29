@@ -1,0 +1,69 @@
+/* to initilaize  any font */
+
+@font-face {
+    font-family:danger;
+    src: url(./Another\ Danger\ -\ Demo.otf);
+}
+
+@font-face {
+    font-family: 'another';
+    src: url(./Calligraphy\ Brilliant.otf);
+}
+@font-face {
+    font-family: love;
+    src: url(./Meybi\ Demo.ttf);
+}
+@font-face {
+    font-family:Dot;
+    src: url(./Ndot-55.otf);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(142, 119, 119);  
+    text-align: center;     
+}
+h1{
+    color: red;
+    background-color: black;
+    font-family:danger;
+    font-size: 120px;
+    font-weight:100;
+
+}
+h2{
+    color:yellow;
+    background-color: black;
+    font-family: another;
+    font-size: 105px;
+    font-weight:700;
+
+}
+
+#c{
+    color:cyan;
+    background-color: black;
+    font-family:love;
+    font-size: 105px;
+    font-weight:700;
+
+}
+
+#dot{
+    color: grey;
+    background-color: black;
+    font-family: Dot;
+    font-size: 100px;
+    font-weight:100;
+}
+
+img{
+    width: 110px;
+    height: 90px;
+    margin-top: 18px;
+}

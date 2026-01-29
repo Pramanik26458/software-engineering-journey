@@ -1,0 +1,154 @@
+@font-face {
+    font-family: hey;
+    src: url(../day1/Meybi\ Demo.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    /* background-color: rgb(142, 119, 119);   */
+}
+
+h1{
+    color: red;
+    background-color: black;
+    font-family:hey;
+    font-size: 120px;
+    font-weight:100;
+    text-align: center; 
+}
+.container1{
+    display: flex;
+    height: 300px;
+    width: 100%;
+    flex-wrap: wrap
+
+}
+.box1{
+    height: 200px;
+    width: 200px;
+    /* we can give the direction here too*/
+    background: linear-gradient(orange ,white, green); 
+    border: 2px solid black;
+    margin:20px ;
+
+
+}
+.box2{
+    height: 200px;
+    width: 200px;
+    background: radial-gradient(circle, yellow, red, black);
+    border: 2px solid black;
+    margin: 20px;
+
+}
+
+.box3{
+    height: 200px;
+    width: 200px;
+    background: conic-gradient(red, yellow, green, blue, red);
+    border: 2px solid black;
+    margin: 20px;
+
+}
+
+/* margin & padding  */
+
+.container2{
+    display: flex;
+    font-family: hey;
+    font-size: 35px;
+    
+}
+
+.box4{
+    height: 200px;
+    width: 200px;
+
+    margin-left: 20px;
+    padding-top: 50px;
+    
+    background-color: rgb(255, 0, 0);
+}
+.box5{
+    height: 200px;
+    width: 200px;
+
+    margin-top: 40px;
+    padding: 40px;
+
+    background-color:rgb(255, 170, 0);
+}
+.box6{
+    height: 200px;
+    width: 200px;
+
+    margin-left: 40px;
+    padding-left: 40px;
+   
+    background-color: rgb(0, 255, 30);
+}
+
+.box7{
+
+    height: 200px;
+    width: 200px;
+
+    margin: 50px;
+    padding: 50px;
+    background-color: rgb(0, 85, 255);
+    border: 2px solid red;
+    border-radius:10px;
+}
+.outer{
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+    background-color: blue;
+}
+.inner{
+    /*  the percentage % unit is depend on the parent but ps has not depened */
+    height: 50%;
+    width: 100px;
+    background-color: crimson;
+}
+.main{
+    height: 40%;
+    width: 40%;
+    /* background-color: darkmagenta; */
+    background-image: url(./Screenshot\ 2025-09-29\ 162938.png);
+    background-size: cover;
+    margin-bottom: 100px;
+
+}
+.radius{
+    height: 200px;
+    width: 200px;
+    font-family: hey;
+    font-weight: 900;
+    color: red;
+    background:radial-gradient(orange,red,black);
+
+    margin: 50px;
+    border: 2px solid red;
+    border-radius: 50%;
+
+}
+
+/* for removing the default border from the border set border:none; */
+
+button{
+    margin: 100px;
+    padding: 15px 30px;
+    background:linear-gradient(to right bottom,red,blue);
+    color: gold;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+}

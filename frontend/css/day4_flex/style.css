@@ -1,0 +1,294 @@
+@font-face {
+    font-family: first;
+    src: url(./sf-pro-display_regular.woff2);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+#main{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+
+    
+}
+#nav{
+    height: 70px;
+    width: 100%;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 20px;
+
+    font-size: 20px;
+}
+
+#nav h4{
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#center{
+    height: 80%;
+    width: 100%;
+    text-align: center;
+    background-image: url(./hero_iphone_17_pro__bknyzxfk2agi_mediumtall.jpg);
+    background-size:cover;
+    background-position: center;
+    padding: 50px;
+
+}
+
+#center h1{
+    color: white;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+   
+}
+#center h5{
+    color: white;
+    font-size: 40px;
+    font-weight:300;
+   
+}
+
+#links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding:20px;
+}
+
+#links button{
+    background-color: royalblue;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 300;
+    font-size: 20px;
+
+
+}
+
+#anotherone{
+    height: 80%;
+    width: 100%;
+    text-align: center;
+    background: url(./second.jpg);
+    background-size: cover;
+    background-position: center;
+    padding: 50px;
+}
+#anotherone h1{
+    color: black;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+}
+
+#anotherone h4{
+    color:black;
+    font-size: 29px;
+    font-weight:300;
+
+}
+
+#btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding:20px;
+}
+#btn button{
+    background-color: royalblue;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 300;
+    font-size: 20px;
+    /* margin: 10px; */
+}
+
+#parent{
+    height: 100%;
+    width: 100%;
+    padding: 13px 25px ;
+    
+
+}
+
+#parent #row1{
+    height: 90%;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    margin:10px;
+    gap: 10px;
+    text-align:center;
+}
+
+#row1 #left{
+    height: 100%;
+    width: 50%;
+    background: url(./d1.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+}
+
+#row1 #right{
+
+    
+    height: 100%;
+    width: 50%;
+    background: url(./d2.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+}
+
+#row1 h1{
+    color: black;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+}
+
+
+#Lbtn,#Rbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding:20px;
+
+}
+#Lbtn button{ 
+    background-color: royalblue;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 300;
+    font-size: 20px;
+    /* margin: 10px; */
+
+}
+#Rbtn button{ 
+    background-color: royalblue;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 300;
+    font-size: 20px;
+    /* margin: 10px; */
+
+}
+
+
+#parent #row2{
+    height: 90%;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    margin:10px;
+    gap: 10px;
+    text-align:center;
+}
+
+#row2 #left{
+    height: 100%;
+    width: 50%;
+    background: url(./d3.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+}
+
+#row2 #right {
+ 
+    height: 100%;
+    width: 50%;
+    background: url(./d4.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+}
+
+#row2 h1{
+    color: black;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+}
+
+#parent #row3{
+    height: 90%;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    margin:10px;
+    gap: 10px;
+    text-align:center;
+    padding:20px;
+
+}
+
+#row3 #left{
+    height: 100%;
+    width: 50%;
+    background: url(./5.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+    color: #fff;
+}
+#row3 #left h1{
+     color: white;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+}
+
+#row3 #right{  
+    height: 100%;
+    width: 50%;
+    background: url(./d7.jpg);
+    background-size: cover;
+    background-position:center;
+    padding: 50px;
+}
+
+#row3 h1{
+    color: black;
+    font-size: 60px;
+    font-weight:600;
+    font-family: first;
+}
+
+#main #btn2{
+    border: 2px solid royalblue;
+    color: royalblue;
+    background-color: transparent;
+}
+#main #btn2:hover{
+    background-color:royalblue;
+    color: #fff;
+}

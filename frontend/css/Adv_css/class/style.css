@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  /* background:radial-gradient(240px at 50% 0px , rgb(255, 0, 0),black); */
+  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background-color: var(--bgColor);
+  height: 200px;
+  width: 400px;
+  box-shadow: inset 0px 0px 50px white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: changebgcOfBox 3s infinite alternate;
+}
+
+.box h3 {
+  font-size: 3rem;
+  font-family: cursive;
+  color: white;
+
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px rgb(0, 0, 0),
+    0 0 20px rgb(0, 0, 0);
+
+  animation: textEffect 3s infinite alternate;
+}
+
+@property --bgColor {
+  syntax: '<color>';
+  initial-value: rgb(233, 129, 129);
+  inherits: false;
+}
+
+@keyframes changebgcOfBox {
+  from {
+    --bgColor: rgb(255, 0, 0);
+    border-radius: 0px;
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    --bgColor: rgba(169, 61, 143, 0.833);
+    border-radius: 50px;
+    transform: scale(0.95);
+    /* opacity: 0; */
+  }
+}
