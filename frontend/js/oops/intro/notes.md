@@ -1,111 +1,143 @@
 # Object-Oriented Programming (OOP) in JavaScript
 
-Object-Oriented Programming (OOP) helps us write **clean**, **reusable**, and **well-structured** code by organizing logic into **objects and classes**.
+Object-Oriented Programming (OOP) helps us write **clean, reusable, and well-structured code** by organizing our logic into **objects and classes**.
 
-These notes are written as part of my learning journey and focus on **clarity over complexity**.
+This repository contains my **personal notes while learning OOP in JavaScript**, written in very **simple language** so that even someone who is starting from zero can understand.
+
+👉 All **runnable code examples** related to these topics are written in **`index.js`**. This README focuses only on **concepts and explanations**.
 
 ---
 
-## 1. What is OOP?
+## Project Structure
+
+```text
+├── index.js   // All OOP practical code and experiments
+└── README.md  // OOP concepts explained in simple language
+```
+
+---
+
+## What is OOP?
 
 OOP is a way of writing code where:
 
-- Data and functionality stay together
-- Code becomes easier to understand and manage
-- We can reuse logic instead of rewriting it
+* Data and the functions that work on that data stay together
+* Code becomes easier to read and manage
+* Logic can be reused instead of writing it again and again
 
-JavaScript supports OOP using **objects**, **classes**, and **prototypes**.
-
----
-
-## 2. Object in JavaScript
-
-An object is a collection of **key–value pairs**.
-
-- Keys are called **properties**
-- Functions inside objects are called **methods**
-
-Objects help group related data and actions together.
+JavaScript supports OOP mainly using **objects**, **classes**, **constructors**, **prototypes**, and function context (`this`).
 
 ---
 
-## 3. Class in JavaScript
+## Object in JavaScript
 
-A class is a **blueprint** used to create multiple objects with the same structure.
+An object represents a **real-world entity** in code.
 
-### Important rules about classes
+* It stores data using **properties**
+* It performs actions using **methods**
 
-- Class names should **always start with a capital letter**
-- A class does not hold data itself
-- Objects are created from a class using the `new` keyword
+👉 **Important:** An object is an **instance of a class**.
 
-Example naming:
-- ✅ `User`
-- ✅ `Car`
-- ❌ `user`
-- ❌ `car`
+In JavaScript, objects can also be created **without using classes** (for example, using object literals). This is one reason JavaScript is more flexible than traditional OOP languages.
 
 ---
 
-## 4. Constructor
+## Class in JavaScript
+
+A class is a **blueprint** used to create multiple objects with the same structure and behavior.
+
+### Naming Convention (Important)
+
+Class names are written in **PascalCase**:
+
+* ✅ `User`
+* ✅ `Car`
+* ❌ `user`
+* ❌ `car`
+
+This convention helps clearly differentiate **classes** from **objects and variables**.
+
+---
+
+## Constructor
 
 A constructor is a **special method** inside a class.
 
-- It runs automatically when an object is created
-- It is mainly used to **initialize values**
-- A class can have only **one constructor**
+* It runs automatically when an object is created
+* It initializes object properties
+* A class can have only **one constructor**
 
-Inside a constructor, we use `this` to refer to the current object.
-
----
-
-## 5. `this` Keyword
-
-- `this` refers to the **current object**
-- It helps access properties and methods inside the same object
-- The value of `this` depends on **how a function is called**
+The `this` keyword inside a constructor refers to the **current object being created**.
 
 ---
 
-## 6. Prototype in JavaScript
+## The `this` Keyword
 
-JavaScript is a **prototype-based language**.
+The `this` keyword refers to the **object that is calling the function**.
 
-- Every function has a `prototype`
-- Methods added to the prototype are **shared**
-- This saves memory and improves performance
+Its value depends on **how the function is called**, not where it is written.
 
-Instead of creating the same method for every object, JavaScript uses prototypes.
+In JavaScript, `this` behaves differently in:
 
----
+* Global scope
+* Normal functions
+* Object methods
+* Arrow functions
 
-## 7. Inheritance
-
-Inheritance allows one class to **reuse properties and methods** of another class.
-
-- The parent class is also called **base class**
-- The child class is also called **derived class**
-- JavaScript uses the `extends` keyword for inheritance
-
-Inheritance helps avoid code duplication.
+Understanding `this` is very important before learning `call`, `apply`, and `bind`.
 
 ---
 
-## 8. Why OOP is useful
+## call(), apply(), and bind()
 
-- Code becomes organized
-- Easier to debug and maintain
-- Reusability increases
-- Useful for large applications
-- Matches real-world thinking
+In JavaScript, **call**, **apply**, and **bind** are used to **explicitly control the value of `this`**.
+
+👉 **Core idea:** If a function’s `this` refers to `window`, but we want it to refer to another object, we can use **call()**, **apply()**, or **bind()** to explicitly set the value of `this`.
+
+They are useful when:
+
+* A function’s `this` is not pointing to the expected object
+* We want to reuse the same function with different objects
+* We are working with callbacks or detached functions
+
+### call()
+
+* Invokes the function **immediately**
+* Arguments are passed **one by one**
+* Explicitly sets the value of `this`
+
+### apply()
+
+* Similar to `call()`
+* Invokes the function **immediately**
+* Arguments are passed as an **array**
+
+### bind()
+
+* Does **not** invoke the function immediately
+* Returns a **new function** with `this` permanently bound
+* The returned function can be called later
+
+### Quick Difference
+
+* `call()` → call now, arguments separately
+* `apply()` → call now, arguments as an array
+* `bind()` → bind now, call later
 
 ---
+
+## Class Documents
+
+For additional reference and better understanding, the documents related to these classes can be found here:
+
+👉 Class document 1: [https://drive.google.com/file/d/1utpaP_5q21IdorzK8SnPVJ7uFgGprcVa/view](https://drive.google.com/file/d/1utpaP_5q21IdorzK8SnPVJ7uFgGprcVa/view)
+
+👉 Class document 2: [https://drive.google.com/file/d/1FlGNQoOXk65FHlFz5jELV6pY4ggBo6HV/previ](https://drive.google.com/file/d/1FlGNQoOXk65FHlFz5jELV6pY4ggBo6HV/previ)
 
 ## Final Note
 
-These concepts become clearer with **practice**.
+These notes are written by me while learning JavaScript OOP.
 
-All runnable examples and experiments related to OOP are written in  
-👉 `index.js`
+They focus on **clear understanding**, not memorizing definitions. I’ll keep updating this repository as I learn more and practice regularly.
 
-This folder will be updated and improved as my understanding grows.
+This repo represents my learning journey, step by step.
