@@ -86,3 +86,37 @@ BankAccount1.Deposit(500);
 console.log(`Available Balance: ₹${BankAccount1.balance}.\n`);
 
 console.log(`Another Account Available Balance: ₹${BankAccount2.balance} \n`);
+
+/*
+SECTION 4: Understanding this (Very Important)
+	11.	Create an object named profile with a property username and a method printName that logs this.username.
+	12.	Call the method normally and observe the output.
+	13.	Store the method in a separate variable and call it.
+Observe what happens to this and explain why.
+	14.	Modify the code so that this works correctly again.
+  */
+
+  console.log('\n SECTION 4: Understanding this (Very Important) \n');
+
+  let profile={
+    username:"Basak",
+    printName:function(){
+      console.log(this.username);
+    }
+  }
+profile.printName();
+// Output: Basak
+// Reason: Method is called using the object, so `this` points to `profile`
+
+let Uname= profile.printName;
+Uname();
+// Output: undefined
+// Reason: Function is called without the object reference,
+// so `this` becomes undefined (or window in non-strict mode)
+
+const fixedShowName = profile.printName.bind(profile);
+fixedShowName();
+// Output: Basak
+// Reason: bind() permanently sets `this` to the profile object
+
+// `this` depends on HOW a function is called, not where it is defined
