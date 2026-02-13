@@ -11,14 +11,12 @@ body {
   background-color: black;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
 main {
   height: 100vh;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: linear-gradient(
     to right bottom,
     rgb(26, 26, 26),
@@ -27,26 +25,22 @@ main {
   );
   padding: 10px;
   color: white;
-  overflow: hidden;
 }
 
 section {
   height: 100%;
-  width: 350px;
+  width: 100%;
+  max-width: 380px;
   background-color: black;
-  margin: auto;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .all-reels {
   height: 100%;
-  width: 100%;
-  overflow-y: scroll;              
+  overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  /* scroll-behavior: smooth; */
-  user-select: none;
 }
 
 .all-reels::-webkit-scrollbar {
@@ -54,135 +48,205 @@ section {
 }
 
 .reel {
-  height: 100%;                   
-  width: 100%;
+  height: 100%;
   position: relative;
-  overflow: hidden;
-  border-radius: 10px;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  overflow: hidden;
 }
 
-
-.reel video{
+.reel video {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
 
-.reel .bottom {
+/* ❤️ BIG HEART */
+.big-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 75px;
+
+  background: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e,
+    #d62976,
+    #962fbf,
+    #4f5bd5
+  );
+
+  color: transparent;
+  background-clip: text;
+
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0) rotate(-60deg);
+  pointer-events: none;
+  transition: all cubic-bezier(0.25, 2.6, 0.7, 1.44) 0.6s;
+}
+
+.bottom {
   padding: 30px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
-  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0), black);
   position: absolute;
   bottom: 0;
+  width: 100%;
 }
 
-.bottom .user {
+.user {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 8px;
+  gap: 20px;
 }
 
-.bottom .user img {
+.user img {
   height: 40px;
   width: 40px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: top center;
-  margin-right: 10px;
-  border: 2px solid none;
 }
 
-.bottom .user h4 {
-  font-size: 16px;
-  font-weight: 900;
-}
-
-.title > h3 {
-  font-weight:300;
-  font-size: 15px;
-}
-
-.user > button {
-  padding: 5px 15px;
-  border: none;
-  border-radius: 10px;
-  background-color: #ff005100;
-  color: white;
-  cursor: pointer;
+.user button {
+  padding: 5px 12px;
   border: 1px solid white;
-  margin-left: 4px;
+  background: transparent;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.title h3 {
+  font-weight: 300;
+  font-size: 15px;
 }
 
 .right {
   position: absolute;
-  right: 12px;
-  bottom: 12.5%;
+  right: 12.5px;
+  bottom: 11%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
 }
-
 .right > div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;  
+  cursor: pointer;
   font-size: 20px;
 }
-
-.right>div h4{
+.right > div h4 {
   pointer-events: none;
 }
-
-.right>div h6{
+.right > div h6 {
   pointer-events: none;
 }
-
 .right i {
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 100;
 }
-
 .right h6 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  pointer-events: none;  
+  pointer-events: none;
 }
-
 .love {
   color: red;
 }
-
-.mute{
+.mute {
   backdrop-filter: blur(2rem);
-        background-color: rgba(255, 255, 255, .05);
-        border: 1px solid rgba(255, 255, 255, 0.299);
-
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.299);
   height: 50px;
   width: 50px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   position: absolute;
   top: 10px;
   right: 10px;
 }
-
 .mute i {
   font-size: 24px;
   color: white;
   pointer-events: none;
 }
-
 .mute:active {
   scale: 0.95;
   background-color: rgba(85, 85, 85, 0.6);
+}
+
+
+
+/* ================================= */
+/* 📱 Universal Mobile Optimization */
+/* ================================= */
+
+@media (max-width: 600px) {
+
+  main {
+    padding: 0;
+  }
+
+  section {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .all-reels {
+    height: 100vh;
+  }
+
+  .reel {
+    height: 100vh;
+  }
+
+  .reel video {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* Bottom Section */
+  .bottom {
+    padding: 18px 14px;
+  }
+
+  .bottom .user {
+    gap: 12px;
+  }
+
+  .bottom .user h4 {
+    font-size: 15px;
+  }
+
+  .title h3 {
+    font-size: 13px;
+  }
+
+  /* Right Icons */
+  .right {
+    right: 15px;
+    bottom: 11%;
+    gap: 18px;
+  }
+
+  .right i {
+    font-size: 22px;
+  }
+
+  .right h6 {
+    font-size: 12px;
+  }
+
+  /* Heart Animation Scale */
+  .big-heart {
+    font-size: 65px;
+  }
+
 }
