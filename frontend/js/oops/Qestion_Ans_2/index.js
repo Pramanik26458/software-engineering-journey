@@ -1,122 +1,182 @@
-/*
-SECTION 1: OOPS Thinking with Objects
-	1.	Create an object called laptop that contains brand, price, and a start method that prints “Laptop started”.
-	2.	Add one more method to the same object that increases the price by 10 percent.
-	3.	Now imagine you need 10 laptops with same structure but different data.
-Write down (in words or code) what problems you will face if you keep using plain objects. 
-*/
-//1
+// =====================================================
+// SECTION 1: OOPS Thinking with Objects
+// =====================================================
+
 const laptop = {
   brand: "Dell",
   price: 800,
-  start: function () {
+
+  start() {
     console.log("Laptop started");
   },
+
+  increasePrice() {
+    this.price *= 1.1;
+  }
 };
+
 laptop.start();
-//2
-laptop.increasePrice = function () {
-  this.price *= 1.1;
-};
-
 laptop.increasePrice();
-console.log(laptop.price);
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------
-console.log(
-  "\n ===========SECTION 2: OOPS Thinking with Classes================\n ",
-);
+console.log("Updated Price:", laptop.price);
 
 /*
-    4.  Create a class named Employee that stores:name,salary add a method showDetails that prints name and salary.
-	5.	Create three employee objects from the same class and verify that modifying one employee does not affect the others.
-	6.	Explain in your own words:
-Why is class considered a better option than writing similar objects again and again?
+Problem with plain objects:
+- Code duplication
+- Hard to maintain
+- Not scalable
 */
+
+
+// =====================================================
+// SECTION 2: OOPS Thinking with Classes
+// =====================================================
 
 class Employee {
   constructor(name, salary) {
     this.name = name;
     this.salary = salary;
   }
+
   showDetails() {
     console.log(`Name: ${this.name}, Salary: ${this.salary}`);
   }
 }
 
-let emp1 = new Employee("John", 50000);
+const emp1 = new Employee("John", 50000);
+const emp2 = new Employee("Rohan", 80000);
+const emp3 = new Employee("Sohan", 60000);
+
 emp1.showDetails();
-
-let emp2 = new Employee("rohan", 80000);
 emp2.showDetails();
-
-let emp3 = new Employee("sohan", 60000);
 emp3.showDetails();
 
 emp1.salary = 350000;
 
-console.log("\n after modifing the details of emp1 \n");
+console.log("\nAfter modifying emp1 salary:\n");
 emp1.showDetails();
 emp2.showDetails();
 emp3.showDetails();
 
-console.log(
-  "\n ================== SECTION 3: Constructor and Initialization =====================\n",
-);
-//7
+
+// =====================================================
+// SECTION 3: Constructor and Initialization
+// =====================================================
 
 class BankAccount {
-  constructor(AHName, balance) {
-    this.AHname = AHName;
+  constructor(accountHolderName, balance) {
+    this.accountHolderName = accountHolderName;
     this.balance = balance;
   }
-  Deposit(depAmt) {
-    this.balance += depAmt;
-    let dateTime = new Date().toLocaleString();
 
-    console.log(`Dear ${this.AHname} Your A/C has been credited with ₹${depAmt} on ${dateTime}.`);
-    
+  deposit(amount) {
+    this.balance += amount;
+    console.log(
+      `Dear ${this.accountHolderName}, ₹${amount} credited successfully.`
+    );
   }
 }
 
-let BankAccount1=new BankAccount("rohan",2000)
-let BankAccount2=new BankAccount("Mohan",2000)
+const account1 = new BankAccount("Rohan", 2000);
+const account2 = new BankAccount("Mohan", 2000);
 
-BankAccount1.Deposit(500);
-console.log(`Available Balance: ₹${BankAccount1.balance}.\n`);
+account1.deposit(500);
 
-console.log(`Another Account Available Balance: ₹${BankAccount2.balance} \n`);
+console.log("Account1 Balance:", account1.balance);
+console.log("Account2 Balance:", account2.balance);
+
+
+// =====================================================
+// SECTION 4: Understanding 'this'
+// =====================================================
+
+const profile = {
+  username: "Basak",
+
+  printName() {
+    console.log(this.username);
+  }
+};
+
+profile.printName(); // Basak
+
+const storedFunction = profile.printName;
+storedFunction(); // undefined (this lost)
+
+const fixedFunction = profile.printName.bind(profile);
+fixedFunction(); // Basak
 
 /*
-SECTION 4: Understanding this (Very Important)
-	11.	Create an object named profile with a property username and a method printName that logs this.username.
-	12.	Call the method normally and observe the output.
-	13.	Store the method in a separate variable and call it.
-Observe what happens to this and explain why.
-	14.	Modify the code so that this works correctly again.
-  */
+Important:
+'this' depends on how a function is called.
+*/
 
-  console.log('\n SECTION 4: Understanding this (Very Important) \n');
 
-  let profile={
-    username:"Basak",
-    printName:function(){
-      console.log(this.username);
-    }
-  }
-profile.printName();
-// Output: Basak
-// Reason: Method is called using the object, so `this` points to `profile`
+// =====================================================
+// SECTION 5: Constructor Function & Prototype
+// =====================================================
 
-let Uname= profile.printName;
-Uname();
-// Output: undefined
-// Reason: Function is called without the object reference,
-// so `this` becomes undefined (or window in non-strict mode)
+function Vehicle(type, wheels) {
+  this.type = type;
+  this.wheels = wheels;
+}
 
-const fixedShowName = profile.printName.bind(profile);
-fixedShowName();
-// Output: Basak
-// Reason: bind() permanently sets `this` to the profile object
+Vehicle.prototype.describe = function () {
+  console.log(`This is a ${this.type} with ${this.wheels} wheels.`);
+};
 
-// `this` depends on HOW a function is called, not where it is defined
+const vehicle1 = new Vehicle("Car", 4);
+const vehicle2 = new Vehicle("Bike", 2);
+
+vehicle1.describe();
+vehicle2.describe();
+
+console.log(vehicle1.describe === vehicle2.describe); 
+// true → shared via prototype
+
+
+// =====================================================
+// SECTION 6: call() Method
+// =====================================================
+
+function showBrand() {
+  console.log(this.brand);
+}
+
+const phone1 = { brand: "Apple" };
+const phone2 = { brand: "Samsung" };
+
+showBrand.call(phone1);  // Apple
+showBrand.call(phone2);  // Samsung
+
+
+// =====================================================
+// SECTION 7: apply() Method
+// =====================================================
+
+function introduce(city, role) {
+  console.log(
+    `My name is ${this.name}, I'm from ${city} and I am a ${role}`
+  );
+}
+
+const person = { name: "Alice" };
+
+introduce.apply(person, ["New York", "Developer"]);
+
+
+// =====================================================
+// SECTION 8: bind() Method
+// =====================================================
+
+function greet() {
+  console.log(
+    `Hello, ${this.name}! Welcome to the world of JavaScript.`
+  );
+}
+
+const user = { name: "Basak" };
+
+const boundGreet = greet.bind(user);
+
+boundGreet(); 
+// Hello, Basak! Welcome to the world of JavaScript.

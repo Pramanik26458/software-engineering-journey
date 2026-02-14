@@ -37,6 +37,7 @@ Observe what happens to this and explain why.
 
 ⸻
 
+
 SECTION 5: Constructor Function and Prototype
 	15.	Create a constructor function called Vehicle that accepts type and wheels.
 	16.	Add a method describe inside the constructor and observe memory behavior when multiple objects are created.
