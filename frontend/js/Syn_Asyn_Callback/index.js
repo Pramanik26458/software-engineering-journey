@@ -5,7 +5,7 @@
 // Synchronous Code (Executes line by line)
 console.log("About synchronous and asynchronous code");
 console.log("Synchronous code - executes line by line");
-console.log("More synchronous code");
+console.log("This is the end of synchronous code example");
 
 // Asynchronous Code (Executes after task completion)
 console.log("Asynchronous code example starts");
