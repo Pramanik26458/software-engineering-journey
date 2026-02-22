@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productivity Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="main">
+
+  <!-- NAV -->
+  <div class="nav">
+    <h2>It's Your Dashboard</h2>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+  </div>
+
+  <!-- LANDING SECTION -->
+  <section class="allElems">
+    <header>
+      <div class="header1">
+        <h2>DD/MM/YYYY</h2>
+        <h1>Sunday, 00:00:00 AM</h1>
+        <h4>Bhubaneswar (Odisha)</h4>
+      </div>
+
+      <div class="header2">
+        <h2>20 °C</h2>
+        <h4>Light rain</h4>
+        <h3 class="per">Precipitation: 35%</h3>
+        <h3 class="hum">Humidity: 49%</h3>
+        <h3 class="win">Wind: 10Km/h</h3>
+      </div>
+    </header>
+
+    <div class="allFeatures">
+
+      <div class="todo elem" id="0">
+        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=900&q=80"/>
+        <i class="ri-arrow-right-up-long-line"></i>
+        <h2>To Do List</h2>
+      </div>
+
+      <div class="daily elem" id="1">
+        <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=900&q=80"/>
+        <i class="ri-arrow-right-up-long-line"></i>
+        <h2>Daily Planner</h2>
+      </div>
+
+      <div class="moti elem" id="2">
+        <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=900&q=80"/>
+        <i class="ri-arrow-right-up-long-line"></i>
+        <h2>Motivation</h2>
+      </div>
+
+      <div class="pomo elem" id="3">
+        <img src="https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=800&q=80"/>
+        <i class="ri-arrow-right-up-long-line"></i>
+        <h2>Pomodoro Timer</h2>
+      </div>
+
+      <div class="goals elem" id="4">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"/>
+        <i class="ri-arrow-right-up-long-line"></i>
+        <h2>Daily Goals</h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TODO FULL PAGE -->
+  <section class="fullElem todo-full">
+    <button class="back" id="0">Back</button>
+    <h2>Your Personalized Task Management HUB</h2>
+
+    <div class="todo-container">
+      <div class="addTask">
+        <form>
+          <input id="task-input" type="text" placeholder="Enter a new task"/>
+          <textarea id="task-details" placeholder="Enter Details.."></textarea>
+
+          <div class="mark-imp">
+            <input type="checkbox" id="check"/>
+            <label for="check">Mark as Important</label>
+          </div>
+
+          <button type="submit">Add Task</button>
+        </form>
+      </div>
+
+      <div class="allTask"></div>
+    </div>
+  </section>
+
+  <!-- DAILY PLANNER -->
+  <section class="fullElem daily-full">
+    <button class="back" id="1">Close</button>
+    <h2>Plan your day to be more productive</h2>
+    <div class="day-planner"></div>
+  </section>
+
+  <!-- MOTIVATION -->
+  <section class="fullElem motivation-full">
+    <button class="back" id="2">Close</button>
+    <div class="motivation_container">
+      <div class="motivation_wrapper">
+        <h2>Quote Of The Day</h2>
+        <h1>Loading...</h1>
+        <h3>Loading...</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- POMODORO -->
+  <section class="fullElem pomo-full">
+    <button class="back" id="3">Close</button>
+    <h2>Study With Me</h2>
+    <h4 class="session">Work Session</h4>
+
+    <audio id="alarmSound" src="./items/Alarm-Clock-Short-chosic.com_.mp3" preload="auto"></audio>
+
+    <div class="pomo-timer">
+      <h1>25:00</h1>
+      <button class="start-timer">Start</button>
+      <button class="Pause-timer">Pause</button>
+      <button class="Reset-timer">Reset</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  </section>
+
+  <!-- GOALS -->
+  <section class="fullElem goals-full">
+    <button class="back" id="4">Close</button>
+
+    <div class="goals-container">
+      <div class="goals-header">
+        <h2>Daily Goals</h2>
+        <button id="addGoalBtn">+</button>
+      </div>
+
+      <div class="goal-form" id="goalForm">
+        <input type="text" id="goalTitle" placeholder="Title"/>
+        <input type="date" id="goalDate"/>
+        <button id="saveGoal">Add</button>
+      </div>
+
+      <div class="tabs">
+        <div class="tab ongoing active" data-type="ongoing">Ongoing (0)</div>
+        <div class="tab completed" data-type="completed">Completed (0)</div>
+        <div class="tab missed" data-type="missed">Missed (0)</div>
+      </div>
+
+      <div class="goal-list"></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

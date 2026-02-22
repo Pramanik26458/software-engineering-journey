@@ -1,0 +1,901 @@
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --bg-primary: #0b1220;
+  --bg-secondary: #111827;
+  --card-bg: #0f172a;
+
+  --accent: #ff7a18;
+  --accent-strong: #ff9d42;
+  --accent-glow: rgba(255, 122, 24, 0.35);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  --border-soft: rgba(255, 255, 255, 0.08);
+
+  --ongoing: #ff7a18;
+  --ongoing-soft: rgba(255, 122, 24, 0.15);
+
+  --completed: #22c55e;
+  --completed-soft: rgba(34, 197, 94, 0.15);
+
+  --missed: #ef4444;
+  --missed-soft: rgba(239, 68, 68, 0.15);
+
+  --tab-bg: #1f2937;
+  --tab-idle: #9ca3af;
+  --red: red;
+}
+
+body.light-mode {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --card-bg: #ffffff;
+
+  --accent: #ea580c;
+  --accent-strong: #f97316;
+  --accent-glow: rgba(234, 88, 12, 0.25);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  --border-soft: rgba(0, 0, 0, 0.08);
+}
+/* ================= FONTS ================= */
+
+@font-face {
+  font-family: aeonik;
+  font-weight: 200;
+  src: url(./items/AeonikTRIAL-Light.otf);
+}
+
+@font-face {
+  font-family: aeonik;
+  font-weight: 500;
+  src: url(./items/AeonikTRIAL-Regular.otf);
+}
+
+@font-face {
+  font-family: aeonik;
+  font-weight: 700;
+  src: url(./items/AeonikTRIAL-Bold.otf);
+}
+
+/* ================= GLOBAL ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: aeonik;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: var(--bg-primary);
+}
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+  overflow: hidden;
+
+}
+
+#main {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-primary);
+}
+
+/* ================= NAV ================= */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 30px;
+  margin: 2px 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.nav h2 {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px var(--accent-glow);
+}
+
+/* ================= CARD SECTION ================= */
+
+section.allElems {
+  min-height:100vh;
+
+  width: 100%;
+  padding: 10px;
+  /* padding-top: 80px; */
+  overflow: auto;
+  position: absolute;
+  z-index: 1;
+}
+
+.allElems {
+  display: block;
+}
+
+.allElems header {
+  height: 260px;
+  width: 100%;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid var(--border-soft);
+  color: white;
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  top: 10%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px;
+}
+
+header .header1 h1 {
+  font-size: 100px;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+
+header .header1 h2 {
+  font-size: 45px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+header .header1 h4 {
+  font-size: 35px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+header .header2 h2 {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+header .header2 h4 {
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+header .header2 h3 {
+  font-size: 25px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.allElems .allFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* ================= CARD ================= */
+
+.elem {
+  height: 370px;
+  width: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.elem img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Zoom image */
+.elem:hover img {
+  transform: scale(1.05);
+}
+
+/* Gradient overlay */
+.elem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(224, 85, 20, 0.95) 0%,
+    rgba(224, 85, 20, 0.6) 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.elem:hover::after {
+  opacity: 1;
+}
+
+.elem:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px var(--accent-glow);
+}
+
+/* Card Title */
+.elem h2 {
+  position: absolute;
+  bottom: 4%;
+  right: 3%;
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  z-index: 2;
+}
+
+/* Arrow Icon */
+.elem i {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 50%;
+  z-index: 2;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  transition: transform 0.3s ease;
+}
+
+.elem:hover i {
+  transform: rotate(45deg);
+}
+
+/* ================= FULL PAGE OVERLAY ================= */
+
+.fullElem {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: 0.3s ease;
+  display: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* ================= BACK BUTTON ================= */
+
+.back {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--accent-strong);
+  transition: 0.3s ease;
+}
+
+.back:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= TODO PAGE ================= */
+
+.todo-full h2 {
+  font-size: 45px;
+  color: var(--text-primary);
+}
+
+.todo-container {
+  height: 80%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Left Form */
+.addTask {
+  height: fit-content;
+  width: 39%;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0px 0px 5px var(--accent);
+}
+
+.addTask input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  color: #e05514;
+  outline: none;
+  box-shadow: 0px 0px 2px var(--accent-strong);
+  font-size: 20px;
+  font-weight: 500;
+}
+.addTask textarea {
+  width: 100%;
+  height: 250px;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  color: #e05514;
+  box-shadow: 0px 0px 2px var(--accent-strong);
+  outline: none;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.addTask button {
+  height: fit-content;
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #e05514, #eda34f);
+
+  transition: all 0.3s ease;
+}
+.addTask button:active {
+  scale: 0.99;
+  box-shadow: 0 2px 0 0 rgba(255, 0, 0, 0.155);
+}
+
+/* Right Task List */
+.allTask {
+  width: 65%;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 30px;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  box-shadow: 0px 0px 5px var(--accent);
+}
+
+.allTask::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+/* Task Card */
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  transition: 0.3s ease;
+}
+
+.task:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+.task h5 {
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+.task span.true {
+  background: var(--red);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 50px;
+  font-size: 12px;
+  vertical-align: super;
+}
+
+.task span.false {
+  display: none;
+}
+
+.task button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(135deg, #e05514, #eda34f);
+  font-weight: 500;
+}
+
+.mark-imp {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.mark-imp input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.mark-imp label {
+  font-size: 20px;
+  background-color: var(--card-bg);
+  cursor: pointer;
+}
+
+/* .daily-full {
+  display: block;
+} */
+
+.daily-full h2 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.daily-full .day-planner {
+  background: var(--bg-secondary);
+  height: 85%;
+  width: 100%;
+  border-radius: 12px;
+  padding: 30px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-content: flex-start;
+  overflow-y: auto;
+  box-shadow: 0px 0px 5px var(--accent);
+
+  /* Hide Scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.daily-full .day-planner::-webkit-scrollbar {
+  display: none;
+}
+
+.day-planner-time {
+  width: calc(50% - 10px); /* 2 columns */
+  display: flex;
+  /* flex-direction: column; */
+  position: relative;
+}
+
+.day-planner-time p {
+  position: absolute;
+  top: 10%;
+  left: 1%;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--accent-strong);
+  margin-bottom: 10px;
+}
+
+.day-planner-time input {
+  padding: 20px 45px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  font-size: 30px;
+  padding-top: 30px;
+  outline: none;
+  width: 100%;
+}
+
+.motivation-full {
+  background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f);
+  font-family: aeonik;
+}
+
+.motivation-full.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivation_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.motivation_wrapper {
+  width: 700px;
+  padding: 60px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  box-shadow: 0 0 80px rgba(255, 140, 0, 0.15);
+  position: relative;
+  transition: 0.4s ease;
+}
+
+.motivation_wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 120px rgba(255, 140, 0, 0.25);
+}
+
+.motivation2 h1 {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  color: #f5f5f5;
+  margin: 40px 0;
+}
+
+.motivation3 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.motivation3 h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #e05514;
+  letter-spacing: 1px;
+}
+
+.motivation_wrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, #e05514, #e05514);
+  border-radius: 25px 0 0 25px;
+}
+
+.motivation_wrapper img {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  height: 70px;
+  opacity: 0.05;
+}
+
+.pomo-full .pomo-timer {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.pomo-full h2 {
+  font-size: 35px;
+}
+
+.pomo-timer {
+  font-size: 100px;
+  /* font-weight: 500; */
+}
+
+.pomo-timer button {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-soft);
+  padding: 15px 40px;
+  margin: 10px;
+  font-size: 30px;
+  font-weight: 500;
+  border-radius: 10px;
+  box-shadow: none;
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+}
+
+.pomo-timer button.start-timer:hover {
+  background: var(--completed-soft);
+  color: var(--completed);
+  scale: 0.98;
+  box-shadow: 0 0 10px var(--completed);
+  border: none;
+}
+
+.pomo-timer button.Pause-timer:hover {
+  background: var(--ongoing-soft);
+  color: var(--ongoing);
+  scale: 0.98;
+  box-shadow: 0 0 10px var(--accent-strong);
+  border: none;
+}
+
+.pomo-timer button.Reset-timer:hover {
+  background: var(--missed-soft);
+  color: var(--missed);
+  scale: 0.98;
+  box-shadow: 0 0 10px var(--missed);
+  border: none;
+}
+
+/* .pomo-timer button:hover {
+  background: var(--accent);
+  color: white;
+} */
+
+/* .pomo-timer button:active {
+  box-shadow: 0px 0px 0px #e05514;
+} */
+
+.pomo-full .session {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 15px 30px;
+  background: var(--completed-soft);
+  color: var(--completed);
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: #222;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.session-break {
+  background: var(--missed-soft);
+  color: var(--missed);
+  box-shadow: 0 0 10px var(--missed);
+  transition: 0.3s ease;
+}
+
+.session-work {
+  background: var(--completed-soft);
+  color: var(--completed);
+  box-shadow: 0 0 10px var(--completed);
+  transition: 0.3s ease;
+}
+
+.goals-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0px 0px 8px var(--accent-strong);
+  border-radius: 10px;
+
+}
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#addGoalBtn {
+  background: var(--ongoing);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* FORM */
+
+.goal-form {
+  display: none;
+  margin-bottom: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0px 0px 2px var(--accent-strong);
+
+}
+
+.goal-form.show {
+  display: block;
+}
+
+.goal-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  border-radius: 10px;
+}
+
+.goal-form input:focus {
+  outline: none;
+  border-color: var(--ongoing);
+  box-shadow: 0 0 8px var(--ongoing-soft);
+}
+
+.goal-form button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--ongoing), #ff9d42);
+  color: white;
+  cursor: pointer;
+}
+
+/* TABS */
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background: #1f2937;
+  padding: 8px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* ACTIVE STATES */
+
+.tab.ongoing.active {
+  background: var(--ongoing-soft);
+  color: var(--ongoing);
+}
+
+.tab.completed.active {
+  background: var(--completed-soft);
+  color: var(--completed);
+}
+
+.tab.missed.active {
+  background: var(--missed-soft);
+  color: var(--missed);
+}
+
+/* CARDS */
+
+.goal-card {
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border-left: 4px solid var(--ongoing);
+}
+
+.goal-card.completed {
+  background: linear-gradient(135deg, var(--completed-soft), #111);
+  border-left: 4px solid var(--completed);
+}
+
+.goal-card.missed {
+  background: linear-gradient(135deg, var(--missed-soft), #111);
+  border-left: 4px solid var(--missed);
+}
+
+.goal-card button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: var(--ongoing);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+/* for ongoing and completed  */
+
+
+.task.completed {
+  background: linear-gradient(135deg, var(--completed-soft), #111);
+  border-left: 3px solid var(--completed);
+}
+
+.task.missed {
+  background: linear-gradient(135deg, var(--missed-soft), #111);
+  border-left: 3px solid var(--missed);
+}
+
+.task.ongoing {
+  border-left: 3px solid var(--ongoing);
+}
+
+.tab.ongoing.active {
+  background: linear-gradient(135deg, var(--ongoing-soft), transparent);
+  color: var(--ongoing);
+  box-shadow: 0 0 12px var(--ongoing-soft);
+}
+
+.tab.completed.active {
+  background: linear-gradient(135deg, var(--completed-soft), transparent);
+  color: var(--completed);
+  box-shadow: 0 0 12px var(--completed-soft);
+}
+
+.tab.missed.active {
+  background: linear-gradient(135deg, var(--missed-soft), transparent);
+  color: var(--missed);
+  box-shadow: 0 0 12px var(--missed-soft);
+}
