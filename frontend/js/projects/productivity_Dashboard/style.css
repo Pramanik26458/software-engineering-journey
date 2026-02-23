@@ -61,6 +61,18 @@ body.light-mode {
   src: url(./items/AeonikTRIAL-Bold.otf);
 }
 
+
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderAnimate {
+  from { --rotate: 0deg; }
+  to { --rotate: 360deg; }
+}
 /* ================= GLOBAL ================= */
 
 * {
@@ -94,8 +106,9 @@ body {
   align-items: center;
   justify-content: space-between;
 
-  padding: 18px 30px;
-  margin: 2px 0;
+  padding: 12px 24px;
+  margin:0 10px;
+  margin-top: 10px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -107,9 +120,21 @@ body {
 }
 
 .nav h2 {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 800;
   letter-spacing: 0.5px;
+  color: var(--text-primary);
+}
+
+.nav button{
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: white;
+  height: 20px;
+  width: 20px;
+  border: none;
+  border-radius: 10px;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 25px var(--accent-glow);
 }
 
 button {
@@ -559,30 +584,46 @@ header .header2 h3 {
   margin-top: 10%;
 }
 
+
 .motivation_wrapper {
   width: 700px;
   padding: 60px;
   border-radius: 25px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 140, 0, 0.2);
-  box-shadow: 0 0 80px rgba(255, 140, 0, 0.15);
+  color: white;
   position: relative;
   transition: 0.4s ease;
+
+  background:
+    linear-gradient(#0f0f0f) padding-box,
+    conic-gradient(from var(--rotate), black, #e05514, black) border-box;
+
+  border: 5px solid transparent;
+
+  animation: borderAnimate 3s linear infinite;
+  animation-play-state: paused;
 }
 
 .motivation_wrapper:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 120px rgba(255, 140, 0, 0.25);
+  animation-play-state: running;
+  box-shadow:
+    0 0 20px #e05514,
+    0 0 40px #e05514,
+    0 0 80px #e05514;
+}
+
+.motivation_wrapper h2 {
+  color: #e05514;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .motivation2 h1 {
   font-size: 34px;
   font-weight: 400;
   line-height: 1.6;
-  letter-spacing: 0.5px;
-  color: #f5f5f5;
   margin: 40px 0;
+  color: #f5f5f5;
 }
 
 .motivation3 {
@@ -594,19 +635,9 @@ header .header2 h3 {
   font-size: 18px;
   font-weight: 500;
   color: #e05514;
-  letter-spacing: 1px;
 }
 
-.motivation_wrapper::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 4px;
-  background: linear-gradient(to bottom, #e05514, #e05514);
-  border-radius: 25px 0 0 25px;
-}
+
 
 .motivation_wrapper img {
   position: absolute;

@@ -1,13 +1,31 @@
 const toggleBtn = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
 
+// Apply saved theme on load
+function loadTheme() {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
+    themeIcon.className = "ri-sun-line";
+  } else {
+    document.body.classList.remove("light-mode");
+    themeIcon.className = "ri-moon-line";
+  }
+}
+
+loadTheme();
+
+// Toggle theme
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
 
-  // Save preference
   if (document.body.classList.contains("light-mode")) {
     localStorage.setItem("theme", "light");
+    themeIcon.className = "ri-moon-line";
   } else {
     localStorage.setItem("theme", "dark");
+    themeIcon.className = "ri-sun-line";
   }
 });
 
@@ -15,43 +33,44 @@ toggleBtn.addEventListener("click", () => {
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light-mode");
 }
+
 function openFeatures() {
-  const allElem = document.querySelectorAll(".elem");
-  const fullElemPage = document.querySelectorAll(".fullElem");
-  const fullElemPageBackBtn = document.querySelectorAll(".fullElem .back");
-  const landingPage = document.querySelector(".allElems");
+  var allElem = document.querySelectorAll(".elem");
+  var fullPages = document.querySelectorAll(".fullElem");
+  var backBtns = document.querySelectorAll(".fullElem .back");
 
-  const activePage = localStorage.getItem("activePage");
+  // Hide all pages initially
+  fullPages.forEach(page => page.style.display = "none");
 
-  // If a page was open before refresh
-  if (activePage !== null) {
-    landingPage.style.display = "none";
-    fullElemPage[activePage].style.display = "block";
+  // Check saved page
+  var activePage = localStorage.getItem("activePage");
+
+  if (activePage !== null && fullPages[activePage]) {
+    fullPages[activePage].style.display = "block";
   }
 
-  // Open Section
+  // Open section
   allElem.forEach(function (elem) {
     elem.addEventListener("click", function () {
-      localStorage.setItem("activePage", elem.id);
+      fullPages.forEach(page => page.style.display = "none");
 
-      landingPage.style.display = "none";
-      fullElemPage[elem.id].style.display = "block";
+      localStorage.setItem("activePage", elem.id);
+      fullPages[elem.id].style.display = "block";
     });
   });
 
   // Back button
-  fullElemPageBackBtn.forEach(function (btn) {
+  backBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      localStorage.removeItem("activePage");
+      fullPages.forEach(page => page.style.display = "none");
 
-      fullElemPage[btn.id].style.display = "none";
-      landingPage.style.display = "block";
+      localStorage.removeItem("activePage");
     });
   });
-
-  document.getElementById("main").style.visibility = "visible";
 }
+
 openFeatures();
+
 
 let form = document.querySelector(".addTask form");
 let Taskinput = document.querySelector(".addTask form #task-input");
@@ -179,20 +198,32 @@ function dailyPlanner() {
 }
 dailyPlanner();
 
+
 var motivationQuote = document.querySelector(".motivation2 h1");
 var motivationAuthor = document.querySelector(".motivation3 h2");
 
 async function fetchQuote() {
-  let response = await fetch(
-    "https://motivational-spark-api.vercel.app/api/quotes/random",
-  );
-  let data = await response.json();
-  console.log(data);
-  motivationQuote.innerHTML = data.quote;
-  motivationAuthor.innerHTML = data.author;
+  try {
+    let response = await fetch(
+      "https://motivational-spark-api.vercel.app/api/quotes/random",
+      {
+        cache: "no-store"
+      }
+    );
+
+    let data = await response.json();
+    console.log(data);
+
+    motivationQuote.textContent = data.quote;
+    motivationAuthor.textContent = "- " + data.author;
+
+  } catch (error) {
+    console.log("Error fetching quote:", error);
+  }
 }
 
 fetchQuote();
+
 
 function pomodoroTimer() {
   let timer = document.querySelector(".pomo-timer h1");
@@ -205,6 +236,7 @@ function pomodoroTimer() {
   var isWorkSession = true;
   let timerInterval = null;
   let totalSeconds = 25 * 60;
+  session.style.boxShadow = "0 0 10px var(--completed)";
 
   // Play alarm sound
   function playSound() {
@@ -261,13 +293,15 @@ function pomodoroTimer() {
 
           timer.innerHTML = "25:00";
           session.innerHTML = "Work Session";
-          session.style.background = "var(--missed-soft)";
-          session.style.color = "var(--missed)";
-          session.style.boxShadow = "0 0 10px var(--missed)";
+
+          session.innerHTML = "Work Session";
+          session.style.background = "var(--completed-soft)";
+          session.style.color = "var(--completed)";
+          session.style.boxShadow = "0 0 10px var(--completed)";
           showToast("Break is over. Time to focus.");
           playSound(); // Play sound when break ends
         }
-      }, 1000);
+      },1000);
     }
   }
 
@@ -289,7 +323,6 @@ function pomodoroTimer() {
     totalSeconds = 25 * 60;
 
     session.innerHTML = "Work Session";
-    session.innerHTML = "Work Session";
     session.style.background = "var(--completed-soft)";
     session.style.color = "var(--completed)";
     session.style.boxShadow = "0 0 10px var(--completed)";
@@ -310,7 +343,7 @@ function pomodoroTimer() {
 
     setTimeout(() => {
       toast.classList.remove("show");
-    }, 3000); 
+    }, 3000);
   }
 }
 pomodoroTimer();
