@@ -1,0 +1,48 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+main{
+    height: 100%;
+    width: 100%;
+    background-color: #111;
+    padding: 5px;
+
+    display: grid;
+    /* grid-template-columns:1fr 1fr 1fr 1fr; fr means fraction */
+    /* grid-template-columns: 100px minmax(100px, auto) 100px; */
+    /* grid-template-columns: repeat(3,200px); */
+    /* grid-template-columns:1fr minmax(100px 400px) 1fr 1fr; */
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows:1fr 1fr 1fr 1fr;
+
+    /* in x axis */
+    /* align-items:end;
+    justify-items:end; */
+
+    /* in y axix */
+
+    align-content:start ;
+    justify-content: center;
+
+    /* row-gap: 10px;
+    column-gap: 20px; */
+     grid-gap: 20px;
+
+    
+
+}
+.child{
+    background-color:rgb(252, 137, 156);
+    border: 2px solid white;
+    height: 100px;
+    width: 100px;
+
+}

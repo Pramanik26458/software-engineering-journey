@@ -1,0 +1,168 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+#main{
+    height: 100%;
+    width: 100%;
+    /* background-color:#111; */
+    background: linear-gradient(white,gray);
+    color:black;
+}
+#nav {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  padding: 25px 80px;
+}
+
+
+
+
+#nav #n1, 
+#nav #n2, 
+#nav #n3 {
+  display: flex;
+  align-items: center;
+}
+
+#nav #n2 {
+  flex: 1; 
+  justify-content: center;  
+}
+
+#nav a {
+  color: #111;
+  font-size: 20px;
+  text-decoration: none;
+  margin-right: 20px;
+}
+#child {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#child > h1 {
+  font-size: 300px;
+  font-weight: 400;
+  padding-left: 250px;
+}
+
+#child #dis {
+  position: absolute;
+  top: 10%;
+  left: 1%;
+  height: 210px;              
+  width: 210px;
+  border: 5px solid dimgray ;      
+  border-radius: 50%;         
+  display: flex;              
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient( to right bottom, white,gray);
+  rotate: -20deg;              
+}
+
+#child #dis h4 {
+  font-size: 50px;            /* adjust size inside circle */
+  margin: 0;
+  color:rgb(42, 39, 39);                 /* match border color */
+  font-weight: bold;
+}
+
+#btmleft{
+    width: 300px;
+    position: absolute;
+    bottom: 20%;
+    left: 3%;
+    /* font-size: 20px; */
+    /* background-color: red; */
+}
+
+#btmleft h4{
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+ul {
+  list-style: none;         
+  padding: 0;
+  /* margin: 0 0 px 0; */
+}
+
+ul li {
+  position: relative;
+  padding-left: 25px;        
+  /* margin-bottom: 8px; */
+  font-size: 18px;
+  color: #333;
+  line-height: 1.2;
+}
+
+/* Custom bullet */
+ul li::before {
+  content: "✔";              
+  left: 0;
+  color: #2c7a7b;            
+  font-size: 14px;
+  margin: 2px 5px 0 0;
+}
+#btmbar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 30px 70px;
+    /* background-color: red; */
+
+}
+#btmbar a{
+    color: #111;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#main  > img{
+    position: absolute;
+    height: 350px;
+}
+
+#main #first{
+    height: 420px;
+    /* width: 350px; */
+    top: 45%;
+    left: 31%;
+    rotate: -25deg;
+}
+
+#main #second{
+    height: 420px;
+    top: 43%;
+    left: 46%;
+    rotate: -25deg;
+}
+
+#main #third{
+    height: 420px;
+    top: 48%;
+    left: 62%;
+    rotate: -25deg;
+}
+#main #fourth{
+    height: 420px;
+    top: 20%;
+    left: 81%;
+    rotate: 25deg;
+}

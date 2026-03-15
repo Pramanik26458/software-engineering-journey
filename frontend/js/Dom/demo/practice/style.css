@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+h1{
+    text-align: center;
+    margin: 20px 0;
+}
+button{
+    align-items: center;
+    background-color: crimson;
+    color: white;
+    box-shadow: 2px 2px 5px rgba(205, 184, 184, 0.3);
+    border: none;
+    padding: 5px 10px;
+    margin: 5px 10px;
+}
