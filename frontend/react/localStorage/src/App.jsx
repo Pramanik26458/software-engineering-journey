@@ -3,9 +3,11 @@ import Form from "./components/Form";
 
 const App = () => {
   return (
-    <div>
+    <> // caled fragments
       <Form />
-    </div>
+    
+    </>
+    
   );
 };
 
