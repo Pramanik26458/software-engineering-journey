@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+/* for linearGradient */
+/* h1{
+    font-size: 200px;
+    color: transparent;
+    background: linear-gradient(red,blue);
+    background-clip: text;
+} */
+
+
+/* for image/gif can't video */
+
+h1{
+    font-size: 100px; 
+    color: transparent;
+    background:url(https://imgs.search.brave.com/zcgiwn7zUENnFtQDru0QqChRdHduUMP0AmUghd7csgk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/WUdteGljU2l4a1VB/QUFBTS9jb2xvcnMu/Z2lm.gif);
+    background-size: cover;
+    background-position: center;
+    background-clip: text;
+    text-align: center;
+}
+
+h1{
+    -webkit-text-stroke: 1px red;
+}
+
+#parent{
+    height: 50%;
+    width: 100%;
+    background-color: #5b3e3e;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+.child{
+    height: 100%;
+    width: 350px;
+    background-color:white;
+    flex-shrink: 0;
+}
+
+/* for hide the scrollbar */
+#parent::-webkit-scrollbar{
+    /* display: none; */
+    background-color: lightblue;
+}
+
+/* #parent::-webkit-scrollbar-thumb{
+    background-color: rgb(34, 0, 255);
+} */

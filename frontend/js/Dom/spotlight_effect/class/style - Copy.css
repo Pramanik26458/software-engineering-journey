@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+   
+
+} 
+
+body{
+    background-image: url('./Screenshot\ 2025-09-29\ 162938.png');
+    background-size:cover;
+}
+
+:root{
+     --x:50%;
+     --y:0px;
+}
+
+
+.box{
+    height: 100%;
+    width: 100%;
+    border: 1px solid white;
+    background: radial-gradient(120px at var(--x) var(--y),rgba(255, 255, 255, 0),rgb(0, 0, 0));
+}

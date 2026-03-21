@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    user-select: none;
+}
+
+main{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    height:220px;
+    width: 450px;
+    background-color: white;
+    border-radius: 10px;
+    padding:30px 20px;
+}
+
+.card p{
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 19px;
+    font-weight:600;
+    font-family: monospace;
+
+}
+.card p span{
+    font-weight: 900;
+    color: royalblue;
+
+}
+
+.outer{
+    height: 15px;
+    width: 100%;
+    background-color:gainsboro;
+    border-radius: 50px;
+}
+
+.inner{
+    height: 100%;
+    width: 0%;
+    /* background-color: green; */
+  background: linear-gradient(145deg, #187040, #062414);
+
+    border-radius: 50px;
+    margin-bottom: 25px;
+}
+.bottom{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-top: 20px;
+} 
+
+.bottom h2{
+    font-size: 45px;
+    font-weight: 100;
+    font-family: monospace;
+}
+.bottom button{
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #0f3d24, #062414);
+  color: #2aff77;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid rgba(42,255,119,0.4);
+  box-shadow:
+    0 0 8px rgba(42,255,119,0.6),
+    inset 0 0 6px rgba(42,255,119,0.3);
+
+}
+
+button:active{
+    scale: 0.9;
+}

@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    /* background-color: black;
+    color: white; */ 
+}
+
+#box {
+    height: 200px;
+    width: 200px;
+    background-color: teal;
+    margin: 20px;
+}
+
+h2{
+    color: white;
+}
+button{
+   background-color: crimson; 
+}
+
