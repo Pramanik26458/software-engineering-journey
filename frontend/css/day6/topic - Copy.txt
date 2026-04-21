@@ -1,6 +1,0 @@
-bolierplate explanation
-Transform
-perspective
-Hover
-Transition
-Basic Project with it
