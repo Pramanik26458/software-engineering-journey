@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 function connectDB() {
   mongoose
     .connect(
-      "mongodb+srv://Dev_Codex:fKPv2UVt42iHzmoS@cluster1.z4lkw25.mongodb.net/day_1",
+    //   uri paste the uri
+    
     )
     .then(() => {
       console.log("Connected to MongoDB");
