@@ -1,9 +1,12 @@
 const express = require("express");
 const noteModel = require("./models/note.models");
+const cors=require("cors");
+const path = require("path");
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
+app.use(express.static("./public"));
 
 /*
 * -POST API to create a note and save in db
@@ -73,6 +76,31 @@ res.status(200).json({
     message:"note uppdated sucessfully",
     notes
 })
+});
+/**
+ * put api/notes/:id
+ * - update  a note title and discription  in db based on id and return updated note in response
+ */
+
+app.put("/api/notes/:id", async (req, res) => {
+
+  const { id } = req.params;
+
+  const updatedNote = await noteModel.findByIdAndUpdate(
+    id,
+    req.body,
+    { new: true }
+  );
+
+  res.status(200).json({
+    message: "Note updated successfully",
+    updatedNote
+  });
+
+});
+
+app.use("*name", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "/public", "index.html"));
 });
 
 

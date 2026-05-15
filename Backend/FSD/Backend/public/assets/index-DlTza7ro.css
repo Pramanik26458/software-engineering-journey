@@ -1,0 +1,299 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+body {
+  padding: 3rem 2rem 5rem;
+  background:
+    radial-gradient(ellipse at top left,     rgba(124, 58, 237, 0.2)   0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(244, 114, 182, 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 55% 45%,      rgba(45, 212, 191, 0.09)  0%, transparent 45%),
+    #080810;
+  min-height: 100vh;
+}
+
+/* ── PAGE HEADER ─────────────────────────── */
+
+body::before {
+  content: '✦  Luminary Notes';
+  display: block;
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #c4b5fd, #f472b6 55%, #2dd4bf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── CREATE FORM ─────────────────────────── */
+
+.note-create-form {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 2.75rem;
+  padding: 1.75rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Prismatic shimmer line on top */
+.note-create-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    rgba(167, 139, 250, 0.7) 30%,
+    rgba(244, 114, 182, 0.7) 60%,
+    rgba(45, 212, 191, 0.5) 85%,
+    transparent 95%
+  );
+}
+
+/* ── FORM INPUTS ─────────────────────────── */
+
+.note-create-form input,
+.note-create-form textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.note-create-form textarea {
+  resize: none;
+  min-height: 105px;
+  line-height: 1.65;
+}
+
+.note-create-form input::placeholder,
+.note-create-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.note-create-form input:focus,
+.note-create-form textarea:focus {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(167, 139, 250, 0.05);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* ── CREATE BUTTON ───────────────────────── */
+
+.note-create-form button[type="submit"] {
+  align-self: flex-end;
+  padding: 0.72rem 1.6rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 60%, #c084fc 100%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.note-create-form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.45);
+}
+
+.note-create-form button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+.notes {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 16px;
+  align-items: start;       /* ✅ BUG FIX */
+}
+
+/* ── NOTE CARD ───────────────────────────── */
+
+.note {
+  padding: 1.3rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: start;        /* ✅ BUG FIX (belt + suspenders) */
+  transition: transform 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+/* Gradient accent bar at top */
+.note::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #f472b6, #fb7185);
+  border-radius: 20px 20px 0 0;
+}
+
+.note:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ── NOTE TITLE ──────────────────────────── */
+
+.note h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.93);
+}
+
+/* ── NOTE DESCRIPTION ────────────────────── */
+
+.note p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+/* ── EDIT MODE INPUTS ────────────────────── */
+
+.note input,
+.note textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.note textarea {
+  resize: none;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+.note input::placeholder,
+.note textarea::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.note input:focus,
+.note textarea:focus {
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* ── ALL NOTE BUTTONS ────────────────────── */
+
+.note button {
+  width: 100%;
+  padding: 0.62rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.note button:active { transform: scale(0.97); }
+
+/* SAVE — green gradient (1st button, edit mode) */
+.note button:first-child {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  border-color: transparent;
+}
+
+.note button:first-child:hover {
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+/* DELETE — red ghost (2nd in edit, 1st in view) */
+.note button:nth-child(2),
+.note button:first-child:last-of-type {
+  background: rgba(239, 68, 68, 0.08);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.note button:nth-child(2):hover {
+  background: rgba(239, 68, 68, 0.16);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.18);
+}
+
+/* EDIT — purple ghost (always last button) */
+.note button:last-child:not(:first-child) {
+  background: rgba(167, 139, 250, 0.08);
+  color: #c4b5fd;
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+.note button:last-child:not(:first-child):hover {
+  background: rgba(167, 139, 250, 0.16);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.2);
+}
+
+/* ── RESPONSIVE ──────────────────────────── */
+
+@media (max-width: 640px) {
+  body {
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  .notes {
+    grid-template-columns: 1fr;
+  }
+
+  .note-create-form button[type="submit"] {
+    align-self: stretch;
+    text-align: center;
+  }
+}
