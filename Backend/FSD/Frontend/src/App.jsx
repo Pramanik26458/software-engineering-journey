@@ -12,7 +12,7 @@ function App() {
 
   function fetchNote() {
     axios
-      .get("http://localhost:3000/api/notes")
+      .get("https://software-engineering-journey.onrender.com/api/notes")
       .then((res) => {
         setNotes(res.data.notes);
       })
@@ -30,7 +30,7 @@ function App() {
 
     const { title, description } = e.target.elements;
 
-    axios.post("http://localhost:3000/api/notes", {
+    axios.post("https://software-engineering-journey.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -44,7 +44,7 @@ function App() {
   }
 
   function handleDelete(noteId) {
-    axios.delete(`http://localhost:3000/api/notes/${noteId}`).then(() => {
+    axios.delete(`https://software-engineering-journey.onrender.com/api/notes/${noteId}`).then(() => {
       fetchNote();
     });
   }
