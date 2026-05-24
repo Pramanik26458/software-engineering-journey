@@ -1,63 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/form.scss";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+
 const Login = () => {
+
+  const { user, loading, handleLogin } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   async function handleSubmit(e) {
+
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          username,
-          password,
-        },
-        {
-          withCredentials: true, // to store the token in cookies
-        },
+
+      const res = await handleLogin(
+        username,
+        password
       );
 
-      console.log(res.data);
-      
+      console.log(res);
+
+      // clear input fields
       setUsername("");
       setPassword("");
+
+      // redirect after login
+      navigate("/");
+
     } catch (err) {
-      console.log(err.response.data);
+
+      console.log(err);
     }
   }
+
   return (
     <main>
       <div className="form-Container">
+
         <h1>Login</h1>
+
         <form onSubmit={handleSubmit}>
+
           <input
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) =>
+              setUsername(e.target.value)
+            }
             type="text"
             name="username"
             placeholder="Enter username"
           />
+
           <input
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
             type="password"
             name="password"
             placeholder="Enter password"
           />
 
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
         </form>
+
         <p>
-          Don' have an account?{" "}
-          <Link className="toggleAuthForm" to="/register">
+          Don't have an account?{" "}
+
+          <Link
+            className="toggleAuthForm"
+            to="/register"
+          >
             Register
           </Link>
         </p>
+
       </div>
     </main>
   );

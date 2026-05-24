@@ -1,6 +1,11 @@
-* {
-  margin: 0%;
-  padding: 0%;
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
+
+// ── Reset ──────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -8,21 +13,63 @@ html,
 body,
 #root {
   width: 100%;
+  min-height: 100%;
 }
 
+// ── Base ───────────────────────────────────────────────
 html {
-  background-color: rgb(34, 33, 33);
-  color: beige;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+  background-color: #000;
+  color: #fff;
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+// ── Scrollbar ──────────────────────────────────────────
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  {
+  background: #2a2a2a;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+// ── Media defaults ─────────────────────────────────────
+img,
+video {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+// ── Selection ──────────────────────────────────────────
+::selection {
+  background: rgba(214, 41, 118, 0.25);
+  color: #fff;
+}
+
+// ── Links ──────────────────────────────────────────────
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// ── Focus ring (accessibility) ─────────────────────────
+:focus-visible {
+  outline: 2px solid rgba(214, 41, 118, 0.6);
+  outline-offset: 3px;
+  border-radius: 4px;
 }

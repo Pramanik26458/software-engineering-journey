@@ -1,51 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
+
+// ── Tokens ─────────────────────────────────────────────
+$yellow  : #feda75;
+$orange  : #fa7e1e;
+$pink    : #d62976;
+$purple  : #962fbf;
+$blue    : #4f5bd5;
+
+$grad-btn  : linear-gradient(90deg, $yellow, $orange, $pink, $purple, $blue);
+$grad-logo : linear-gradient(135deg, $orange 0%, $pink 55%, $purple 100%);
+$grad-link : linear-gradient(135deg, $pink 0%, $purple 100%);
+
+$r-card  : 22px;
+$r-input : 13px;
+$ease    : 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ── Animations ─────────────────────────────────────────
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1);           }
+  50%       { transform: translate(30px, 20px) scale(1.06); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+// ── Page ───────────────────────────────────────────────
 main {
   min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "DM Sans", sans-serif;
+
+  // Override global dark bg for auth pages
+  background: #fef8f3;
+  position: relative;
+  overflow: hidden;
+
+  // Blob 1 — warm (top-left)
+  &::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, $yellow 110%, $orange 60%);
+    filter: blur(90px);
+    opacity: 0.38;
+    top: -140px;
+    left: -140px;
+    animation: float 14s ease-in-out infinite;
+    animation-delay: 0s;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // Blob 2 — cool (bottom-right)
+  &::after {
+    content: "";
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, $pink 0%, $purple 60%);
+    filter: blur(90px);
+    opacity: 0.38;
+    bottom: -120px;
+    right: -120px;
+    animation: float 14s ease-in-out infinite;
+    animation-delay: -7s;
+    z-index: 0;
+    pointer-events: none;
+  }
 }
 
+// ── Card ───────────────────────────────────────────────
 .form-Container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+
+  // Frosted glass
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(32px) saturate(1.8);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: $r-card;
+  padding: 3rem 2.5rem 2.5rem;
+
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-width: 350px;
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 24px 64px rgba($purple, 0.1),
+    0 6px  20px rgba($pink,   0.07);
+
+  animation: reveal 0.65s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+
+  // Gradient border via mask trick
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: $r-card;
+    padding: 1px;
+    background: $grad-btn;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  // ── Logo / h1 ─────────────────────────────────────
+  h1 {
+    text-align: center;
+    font-family: "Grand Hotel", cursive;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 2;
+    margin-bottom: 2rem;
+
+    background: $grad-logo;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    animation: up 0.5s 0.1s both;
+  }
+
+  // ── Form ──────────────────────────────────────────
   form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.9rem;
 
     input,
     button {
+      width: 100%;
       border: none;
       outline: none;
-      padding-inline: 1.5rem;
-      padding-block: 1rem;
-      border-radius: 1rem;
+      font-family: "DM Sans", sans-serif;
+      border-radius: $r-input;
+      font-size: 0.9rem;
+      transition: $ease;
     }
-    button {
-      background: linear-gradient(
-        45deg,
-        #feda75,
-        #fa7e1e,
-        #d62976,
-        #962fbf,
-        #4f5bd5
-      );
 
-      color: white;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 8px;
+    input {
+      padding: 0.9rem 1.1rem;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1.5px solid rgba(0, 0, 0, 0.07);
+      color: #1e0f18;
+      letter-spacing: 0.01em;
+
+      &::placeholder {
+        color: #bbaab6;
+      }
+
+      &:focus {
+        background: #fff;
+        border-color: $pink;
+        box-shadow: 0 0 0 4px rgba($pink, 0.09);
+      }
+
+      &:not(:placeholder-shown):valid {
+        border-color: rgba($purple, 0.35);
+      }
+    }
+
+    button {
+      margin-top: 0.4rem;
+      padding: 0.92rem;
+      background: $grad-btn;
+      background-size: 220% auto;
+      color: #fff;
       font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 4px 18px rgba($pink, 0.3),
+        0 1px  4px rgba($pink, 0.2);
+
+      // Shimmer sweep
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 35%,
+          rgba(255, 255, 255, 0.22) 50%,
+          transparent 65%
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+
+      &:hover {
+        background-position: right center;
+        transform: translateY(-2px);
+        box-shadow:
+          0 8px 26px rgba($pink, 0.35),
+          0 2px  8px rgba($pink, 0.2);
+
+        &::after { transform: translateX(100%); }
+      }
+
+      &:active {
+        transform: scale(0.975);
+        box-shadow: 0 2px 10px rgba($pink, 0.18);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
     }
   }
 
- .toggleAuthForm{
-  color: #d62976;
-  cursor: pointer;
-  text-decoration: none;
- }
+  // ── Footer text ───────────────────────────────────
+  p {
+    text-align: center;
+    font-size: 0.84rem;
+    color: #9e8e97;
+    margin-top: 1.4rem;
+    animation: up 0.5s 0.42s both;
+  }
+
+  // ── Toggle link ───────────────────────────────────
+  .toggleAuthForm {
+    background: $grad-link;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: $grad-link;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform $ease;
+      border-radius: 2px;
+    }
+
+    &:hover::after { transform: scaleX(1); }
+  }
 }
