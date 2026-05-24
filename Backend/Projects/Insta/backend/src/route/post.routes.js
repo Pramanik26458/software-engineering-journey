@@ -2,6 +2,7 @@ const express = require("express");
 const postRouter = express.Router();
 const PostController = require("../controller/post.controller");
 const multer = require("multer");
+const identifyUser = require("../middlewares/auth.middleware");
 const upload = multer({ storage: multer.memoryStorage() });
 
 /**
@@ -14,6 +15,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 postRouter.post(
   "/",
   upload.single("media"),
+  identifyUser,
   PostController.createPostController,
 );
 
@@ -22,7 +24,7 @@ postRouter.post(
 
  */
 
-postRouter.get("/", PostController.getPostConteoller);
+postRouter.get("/", identifyUser, PostController.getPostConteoller);
 
 /*
  *Get/api/posts/details/:postId
@@ -30,6 +32,34 @@ postRouter.get("/", PostController.getPostConteoller);
   also check wheather the post belong to the user that the request come from  
 */
 
-postRouter.get("/details/:postId",PostController.getPostDetailsController)
+postRouter.get(
+  "/details/:postId",
+  identifyUser,
+  PostController.getPostDetailsController,
+);
+
+/**
+ * @route POST /api/posts/like/:postid
+ * @description like a post with
+ *
+ */
+
+postRouter.post(
+  "/like/:postId",
+  identifyUser,
+  PostController.likePostController,
+);
+
+/**
+ * @route POST /api/dislike/:postId
+ * @description dislike a post
+ * 
+ */
+
+postRouter.post(
+  "/dislike/:postId",
+  identifyUser,
+  PostController.PostDislikeController,
+);
 
 module.exports = postRouter;
