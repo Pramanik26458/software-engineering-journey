@@ -17,7 +17,6 @@ const imagekit = new ImageKit({
 
 async function createPostController(req, res) {
   try {
-
     // checking whether image is provided or not
     if (!req.file) {
       return res.status(400).json({
@@ -43,7 +42,6 @@ async function createPostController(req, res) {
       message: "Post Created Successfully",
       post,
     });
-
   } catch (err) {
     console.log(err);
 
@@ -62,7 +60,6 @@ async function createPostController(req, res) {
 
 async function getPostConteoller(req, res) {
   try {
-
     const userId = req.user.id;
 
     // fetching posts of logged-in user
@@ -74,7 +71,6 @@ async function getPostConteoller(req, res) {
       message: "Posts Fetched Successfully",
       posts,
     });
-
   } catch (err) {
     console.log(err);
 
@@ -94,7 +90,6 @@ async function getPostConteoller(req, res) {
 
 async function getPostDetailsController(req, res) {
   try {
-
     const userId = req.user.id;
     const postId = req.params.postId;
 
@@ -121,7 +116,6 @@ async function getPostDetailsController(req, res) {
       message: "Post Fetched Successfully",
       post,
     });
-
   } catch (err) {
     console.log(err);
 
@@ -140,7 +134,6 @@ async function getPostDetailsController(req, res) {
 
 async function likePostController(req, res) {
   try {
-
     const username = req.user.username;
     const postId = req.params.postId;
 
@@ -162,7 +155,7 @@ async function likePostController(req, res) {
     if (isLiked) {
       return res.status(409).json({
         message: "Post has already been liked by you",
-        post
+        post,
       });
     }
 
@@ -176,7 +169,6 @@ async function likePostController(req, res) {
       message: "Post Liked Successfully",
       post,
     });
-
   } catch (err) {
     console.log(err);
 
@@ -188,7 +180,6 @@ async function likePostController(req, res) {
 
 async function PostDislikeController(req, res) {
   try {
-
     const username = req.user.username;
     const postId = req.params.postId;
 
@@ -219,7 +210,46 @@ async function PostDislikeController(req, res) {
 
     res.status(200).json({
       message: "Post disliked successfully",
-      post
+      post,
+    });
+  } catch (err) {
+    console.log(err);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
+async function getFeedController(req, res) {
+  try {
+
+    const user = req.user;
+
+    const posts = await Promise.all(
+
+      (
+        await postModel
+          .find()
+          .populate("createdBy")
+          .sort({ _id: -1 })
+
+      ).map(async (post) => {
+
+        const isLiked = await likeModel.findOne({
+          user: user.username,
+          post: post._id,
+        });
+
+        post._doc.isLiked = !!isLiked;
+
+        return post;
+      })
+    );
+
+    res.status(200).json({
+      message: "Posts fetched successfully",
+      posts,
     });
 
   } catch (err) {
@@ -236,5 +266,6 @@ module.exports = {
   getPostConteoller,
   getPostDetailsController,
   likePostController,
-  PostDislikeController
+  PostDislikeController,
+  getFeedController,
 };

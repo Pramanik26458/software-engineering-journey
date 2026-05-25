@@ -53,7 +53,7 @@ postRouter.post(
 /**
  * @route POST /api/dislike/:postId
  * @description dislike a post
- * 
+ *
  */
 
 postRouter.post(
@@ -62,4 +62,14 @@ postRouter.post(
   PostController.PostDislikeController,
 );
 
-module.exports = postRouter;
+/**
+ * @GET api/posts/feed
+ * @description get all the post of users
+ * @access private
+ */
+
+postRouter.get(
+  "/feed",
+  identifyUser,
+  PostController.getFeedController
+);module.exports = postRouter;
