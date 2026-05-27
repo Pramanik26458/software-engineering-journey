@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const blacklistModel=require("../models/blacklist.model")
+const redis=require("../config/cache");
 
 
 // ================= REGISTER =================
@@ -204,14 +205,21 @@ async function login(req, res) {
 // ================= LOGOUT =================
 
 async function logout(req, res) {
-
   try {
-    const token=req.cookies.token
+
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "Token not found",
+      });
+    }
+
     res.clearCookie("token");
 
-    await blacklistModel.create({
-      token
-    })
+    // blacklist token
+    await redis.set(token, Date.now().toString(),"EX",60*60);
 
     return res.status(200).json({
       success: true,
