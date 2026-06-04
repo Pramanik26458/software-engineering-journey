@@ -1,46 +1,54 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import readline from 'readline/promises';
+import "dotenv/config"
+import readline from "readline/promises";
 import { ChatMistralAI } from "@langchain/mistralai";
-import { HumanMessage } from "langchain";
+import { HumanMessage, tool, createAgent } from "langchain";
+import { sendEmail } from "./mail.service.js";
+import * as z from "zod";
+
+
+const emailTool = tool(
+    sendEmail,
+    {
+        name: "emailTool",
+        description: "Use this tool to send an email",
+        schema: z.object({
+            to: z.string().describe("The recipient's email address"),
+            html: z.string().describe("The HTML content of the email"),
+            subject: z.string().describe("The subject of the email"),
+        })
+    }
+)
+
+
 
 const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
 });
 
 const model = new ChatMistralAI({
-  model: "mistral-small-latest"
-});
+    model: "mistral-small-latest",
+})
 
-console.log('\n' + '='.repeat(50));
-console.log('       GenAI Chat with Mistral AI');
-console.log('='.repeat(50) + '\n');
+const agent = createAgent({
+    model,
+    tools: [ emailTool ]
+})
 
-const message = [];
+const messages = []
 
 while (true) {
-    const userInput = await rl.question('\n👤 You: ');
-    message.push(new HumanMessage(userInput));
-    if (userInput.toLowerCase() === 'exit') {
-        console.log('\n' + '-'.repeat(50));
-        console.log('Thanks for chatting! Goodbye.');
-        console.log('-'.repeat(50) + '\n');
-        break;
-    }
+    const userInput = await rl.question("\x1b[32mYou:\x1b[0m ")
 
-    try {
-        const response = await model.invoke(message);
-        message.push(response);
-        console.log('\n🤖 MistralAI:');
-        console.log('-'.repeat(50));
-        console.log(response.text);
-        console.log('-'.repeat(50));
-    } catch (error) {
-        console.error('❌ Error:', error.message);
-    }
+    messages.push(new HumanMessage(userInput))
+
+    const response = await agent.invoke({
+        messages
+    })
+
+    messages.push(response.messages[ response.messages.length - 1 ])
+
+
+
+    console.log(`\x1b[34m[AI]\x1b[0m ${response.messages[ response.messages.length - 1 ].content}`)
 }
-
-rl.close();
-
-
