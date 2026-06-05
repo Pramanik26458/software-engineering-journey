@@ -1,10 +1,17 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useSelector } from "react-redux";
 
+import {useChat} from "../hooks/useChat"
+
+
 const Dashboard = () => {
+
+  const chat=useChat();
   // Directly select the user object instead of trying to destructure an undefined nested property
   const { user } = useSelector(state => state.auth);
-  
+  useEffect(()=>{
+    chat.initializeSocketConnection()
+  },[])
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-4">Welcome to the Dashboard</h1>
