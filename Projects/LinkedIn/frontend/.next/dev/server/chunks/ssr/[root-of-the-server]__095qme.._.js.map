@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 27, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/styles/Home.module.css [ssr] (css module)"],"sourcesContent":["__turbopack_context__.v({\n  \"buttonJoin\": \"Home-module__Ho9lYW__buttonJoin\",\n  \"container\": \"Home-module__Ho9lYW__container\",\n  \"floatImage\": \"Home-module__Ho9lYW__floatImage\",\n  \"gradientMove\": \"Home-module__Ho9lYW__gradientMove\",\n  \"mainContainer\": \"Home-module__Ho9lYW__mainContainer\",\n  \"mainContainer__left\": \"Home-module__Ho9lYW__mainContainer__left\",\n  \"mainContainer__right\": \"Home-module__Ho9lYW__mainContainer__right\",\n});\n"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA"}}]
+}

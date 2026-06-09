@@ -1,0 +1,236 @@
+/* [project]/src/components/Navbar/style.module.css [client] (css) */
+.style-module__pTJaVG__container {
+  width: 100%;
+}
+
+.style-module__pTJaVG__navBar {
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  display: flex;
+  box-shadow: 0 2px 10px #0000000d;
+}
+
+.style-module__pTJaVG__navBar > h1 {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #7c3aed, #c026d3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.style-module__pTJaVG__navBarOptionContainer {
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.style-module__pTJaVG__buttonJoin {
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed, #c026d3);
+  border-radius: 12px;
+  padding: .8rem 1.8rem;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: all .3s;
+}
+
+.style-module__pTJaVG__buttonJoin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px #7c3aed40;
+}
+
+.style-module__pTJaVG__buttonJoin p {
+  color: #fff;
+  margin: 0;
+}
+
+/* [project]/src/pages/login/style.module.css [client] (css) */
+.style-module__cXfOGG__container {
+  background: radial-gradient(circle at 0 0, #7c3aed1f, #0000 35%), radial-gradient(circle at 100% 100%, #c026d31f, #0000 35%), #fafafa;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+  display: flex;
+}
+
+.style-module__cXfOGG__cardContainer {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: #fffffff2;
+  border-radius: 28px;
+  width: 950px;
+  max-width: 95vw;
+  min-height: 580px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 60px #7c3aed1f;
+}
+
+.style-module__cXfOGG__cardContainer__left {
+  flex-direction: column;
+  flex: .55;
+  justify-content: center;
+  padding: 4rem;
+  display: flex;
+}
+
+.style-module__cXfOGG__cardContainer__right {
+  background: linear-gradient(135deg, #7c3aed, #9333ea, #c026d3);
+  flex: .45;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.style-module__cXfOGG__cardContainer__right:before {
+  content: "";
+  background: #ffffff1f;
+  border-radius: 50%;
+  width: 350px;
+  height: 350px;
+  position: absolute;
+  top: -120px;
+  right: -120px;
+}
+
+.style-module__cXfOGG__cardContainer__right:after {
+  content: "";
+  background: #ffffff14;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+}
+
+.style-module__cXfOGG__loginImage {
+  z-index: 2;
+  filter: drop-shadow(0 20px 30px #00000026);
+  width: 95%;
+  max-width: 420px;
+  position: relative;
+}
+
+.style-module__cXfOGG__cardleft_heading {
+  text-align: center;
+  color: #111827;
+  margin-bottom: .8rem;
+  font-size: 2.7rem;
+  font-weight: 700;
+}
+
+.style-module__cXfOGG__cardleft_subHeading {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.style-module__cXfOGG__inputContainers {
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.style-module__cXfOGG__inputRow {
+  gap: 1rem;
+  display: flex;
+}
+
+.style-module__cXfOGG__inputField {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  outline: none;
+  width: 100%;
+  padding: 1rem;
+  font-size: .95rem;
+  transition: all .3s;
+}
+
+.style-module__cXfOGG__inputField:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px #7c3aed1f;
+}
+
+.style-module__cXfOGG__authButton {
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: none;
+  border-radius: 12px;
+  margin-top: .5rem;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all .3s;
+}
+
+.style-module__cXfOGG__authButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px #7c3aed40;
+}
+
+.style-module__cXfOGG__forgotPassword {
+  text-align: right;
+  color: #7c3aed;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.style-module__cXfOGG__switchText {
+  text-align: center;
+  color: #6b7280;
+  margin-top: .5rem;
+}
+
+.style-module__cXfOGG__switchButton {
+  color: #7c3aed;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.style-module__cXfOGG__switchButton:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .style-module__cXfOGG__cardContainer {
+    flex-direction: column-reverse;
+    min-height: auto;
+  }
+
+  .style-module__cXfOGG__cardContainer__right {
+    min-height: 280px;
+  }
+
+  .style-module__cXfOGG__cardContainer__left {
+    padding: 2rem;
+  }
+
+  .style-module__cXfOGG__cardleft_heading {
+    font-size: 2rem;
+  }
+
+  .style-module__cXfOGG__inputRow {
+    flex-direction: column;
+  }
+
+  .style-module__cXfOGG__loginImage {
+    max-width: 260px;
+  }
+}
+
+/*# sourceMappingURL=src_07clhwl._.css.map*/

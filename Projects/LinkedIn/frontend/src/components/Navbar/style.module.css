@@ -1,0 +1,59 @@
+.container {
+    width: 100%;
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 3rem;
+    background: #ffffff;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navBar > h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    background: linear-gradient(90deg, #7c3aed, #c026d3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navBarOptionContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.buttonJoin {
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
+
+    border-radius: 12px;
+
+    padding: 0.8rem 1.8rem;
+
+    color: white;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.buttonJoin:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+}
+
+.buttonJoin p {
+    margin: 0;
+    color: white;
+}

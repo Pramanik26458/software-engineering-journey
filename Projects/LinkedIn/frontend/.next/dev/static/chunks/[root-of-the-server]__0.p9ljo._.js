@@ -469,30 +469,20 @@ function triggerUpdate(msg) {
 "[project]/src/styles/Home.module.css [client] (css module)", ((__turbopack_context__) => {
 
 __turbopack_context__.v({
+  "buttonJoin": "Home-module__Ho9lYW__buttonJoin",
+  "container": "Home-module__Ho9lYW__container",
+  "floatImage": "Home-module__Ho9lYW__floatImage",
+  "gradientMove": "Home-module__Ho9lYW__gradientMove",
+  "mainContainer": "Home-module__Ho9lYW__mainContainer",
+  "mainContainer__left": "Home-module__Ho9lYW__mainContainer__left",
+  "mainContainer__right": "Home-module__Ho9lYW__mainContainer__right",
 });
 }),
-"[project]/src/pages/index.js [client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
+"[project]/src/pages/index.js [client] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-__turbopack_context__.s([
-    "default",
-    ()=>Home
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/head.js [client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$Home$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/Home.module.css [client] (css module)");
-;
-;
-;
-function Home() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {}, void 0, false);
-}
-_c = Home;
-var _c;
-__turbopack_context__.k.register(_c, "Home");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
+const e = new Error("Could not parse module '[project]/src/pages/index.js'\n\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?");
+e.code = 'MODULE_UNPARSABLE';
+throw e;
 }),
 "[next]/entry/page-loader.ts { PAGE => \"[project]/src/pages/index.js [client] (ecmascript)\" } [client] (ecmascript)", ((__turbopack_context__, module, exports) => {
 

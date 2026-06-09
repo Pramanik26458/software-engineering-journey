@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/pages/login/style.module.css [ssr] (css module)"],"sourcesContent":["__turbopack_context__.v({\n  \"animationHomePageBreatheEffect\": \"style-module__cXfOGG__animationHomePageBreatheEffect\",\n  \"buttonJoin\": \"style-module__cXfOGG__buttonJoin\",\n  \"container\": \"style-module__cXfOGG__container\",\n  \"mainContainer\": \"style-module__cXfOGG__mainContainer\",\n  \"mainContainer__left\": \"style-module__cXfOGG__mainContainer__left\",\n  \"mainContainer__right\": \"style-module__cXfOGG__mainContainer__right\",\n});\n"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA"}},
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/CODE/Desktop/software-engineering-journey/Projects/LinkedIn/frontend/src/pages/login/index.jsx"],"sourcesContent":["import React from 'react'\r\nimport style from './style.module.css'\r\nconst Login = () => {\r\n  return (\r\n    <div>\r\n   login page   \r\n    </div>\r\n  )\r\n}\r\n\r\nexport default Login\r\n"],"names":["Login"],"mappings":";;;;;AAAA;AACA;;;;AACA,MAAMA,QAAQ;IACZ,qBACE,qKAAC;kBAAI;;;;;;AAIT;uCAEeA"}}]
+}

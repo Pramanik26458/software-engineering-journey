@@ -1,0 +1,162 @@
+.container {
+    font-family: "Poppins", sans-serif;
+    background-color: #ffffff;
+    min-height: 100vh;
+    padding: 0 4rem;
+}
+
+.mainContainer {
+    max-width: 1300px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    min-height: 90vh;
+    gap: 3rem;
+}
+
+.mainContainer__left {
+    flex: 1;
+}
+
+.mainContainer__right {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer__right img {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+
+    animation: floatImage 4s ease-in-out infinite;
+}
+
+.mainContainer__left > p:nth-child(1) {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+
+    background: linear-gradient(
+        90deg,
+        #5b21b6,
+        #7c3aed,
+        #a855f7
+    );
+
+    background-size: 200% auto;
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: gradientMove 4s ease infinite;
+}
+
+.mainContainer__left > p:nth-child(2) {
+    color: #6b7280;
+    font-size: 1.3rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+
+    max-width: 600px;
+}
+
+.buttonJoin {
+    width: fit-content;
+
+    padding: 1rem 2.2rem;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #c026d3
+    );
+
+    color: white;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.buttonJoin:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 30px rgba(124, 58, 237, 0.25);
+}
+
+.buttonJoin p {
+    margin: 0;
+    color: white;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes floatImage {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 900px) {
+    .container {
+        padding: 2rem;
+    }
+
+    .mainContainer {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .mainContainer__left > p:nth-child(1) {
+        font-size: 2.5rem;
+    }
+
+    .mainContainer__left > p:nth-child(2) {
+        font-size: 1.1rem;
+    }
+
+    .buttonJoin {
+        margin: auto;
+    }
+
+    .mainContainer__right img {
+        max-width: 450px;
+    }
+}

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "../action/authAction"; 
+
+import { loginUser, registerUser } from "../../action/authAction/index"; 
 
 const initialState = {
-  user: null, 
+  user: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -12,6 +13,8 @@ const initialState = {
   connections: [],
   connectionRequest: []
 };
+
+// ... keep the rest of your authSlice code below as is!
 
 const authSlice = createSlice({
   name: "auth",

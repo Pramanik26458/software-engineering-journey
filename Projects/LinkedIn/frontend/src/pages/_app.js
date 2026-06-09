@@ -1,11 +1,12 @@
 import React from "react";
-import ReduxProvider, { store } from "../config/Index"; // 👈 We import the 'store' directly from your config file here!
+import { Provider } from "react-redux";
+import { store } from "../config/redux/store"; // ✅ Points directly to your single store file!
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ReduxProvider store={store}> 
+    <Provider store={store}>
       <Component {...pageProps} />
-    </ReduxProvider>
+    </Provider>
   );
 }
