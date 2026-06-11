@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    /* overflow: hidden; */
+    color: antiquewhite;
+}
+
+
+ 
+
+.box, .box1,.box2,.box3{
+  height: 169px;
+  width: 169px;
+  margin-bottom: 1.2rem;
+} 
+
+.box{
+    background-color: red;
+}
+
+.box1{
+    background-color: rgb(245, 191, 16);
+}
+
+.box2{
+    background-color: rgb(16, 246, 4);
+}
+
+.box3{
+    background-color: rgb(0, 64, 255);
+}
+
+
+button{
+  color: red;
+  background-color: blueviolet;
+}
+/* --- Pages --- */
+.page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111; /* Temporary dark tone to distinguish page 1 */
+}
+
+/* CRITICAL FIX: Changed from 400px to 100vh so ScrollTrigger pinning works perfectly */
+.page2 {
+    height: 100vh; 
+    width: 100%;
+    position: relative;
+    overflow: hidden; /* Keeps scaled-down content safely inside bounds */
+}
+
+/* --- Image Wrapper & Image --- */
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center center;
+    z-index: 1;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* --- Content Overlays --- */
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Starting gap - adjusted to layout nicely before GSAP overrides it */
+    gap: 40vw; 
+    white-space: nowrap; 
+}
+
+.content h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+    font-size: 8rem; /* Scaled down slightly to fit standard laptop screens comfortably */
+    color: antiquewhite;
+    text-transform: uppercase;
+}
