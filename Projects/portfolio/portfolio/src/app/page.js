@@ -3,8 +3,8 @@
 
 export default function Home() {
   return (
-   <main className="bg-red-300 h-screen w-full" >
-    <h1>
+   <main className=" h-[300vh] w-full" >
+    <h1 className="text-[6rem] caret-red-600">
       hello evreyone
     </h1>
    </main>

@@ -1,6 +1,5 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import SmoothScroller from "@/components/SmoothScroller";
 
 export const metadata = {
   title: "portfolio",
@@ -9,11 +8,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body>
+        <SmoothScroller>
+          {children}
+        </SmoothScroller>
+      </body>
     </html>
   );
 }
