@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Log environment variables for debugging
 console.log('Gmail Config:', {
     user: process.env.GOOGLE_USER,
     clientId: process.env.GOOGLE_CLIENT_ID ? 'Set' : 'Missing',

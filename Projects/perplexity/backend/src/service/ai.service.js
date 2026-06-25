@@ -1,49 +1,88 @@
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { ChatMistralAI } from "@langchain/mistralai";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
+import { tavily } from "@tavily/core";
 
-const geminiModel = new ChatGoogleGenerativeAI({
-    model: "gemini-2.5-flash",
-    apiKey: process.env.GEMINI_API_KEY
-});
+// 1. Initialize Tavily
+const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-const mistralModel = new ChatMistralAI({
-    mistral: "mistral-small-latest",
-    temperature: 0.3, 
-    maxRetries: 3,
-    apiKey: process.env.MISTRAL_API_KEY
-})
+// 2. Best performing free models pool
+const FREE_MODELS_POOL = [
+  "google/gemini-2.5-flash",
+  "meta-llama/llama-3.3-70b-instruct:free",
+  "openrouter/auto"
+];
 
-export async function testAi() {
-    geminiModel.invoke([
-        {
-            role: "user",
-            content: "What is AI explain under 100 words? in simple so that a 5 year old can understand"
-        }
-    ]).then((response) => {
-        console.log("AI Response:", response);
-    }).catch((error) => {
-        console.error("Error invoking AI model:", error);
-    });
+function createModelInstance(modelName) {
+  return new ChatOpenAI({
+    model: modelName,
+    apiKey: process.env.OPENROUTER_API_KEY,
+    temperature: 0.3,
+    configuration: { baseURL: "https://openrouter.ai/api/v1" },
+  });
 }
 
-export async function genertaeResponse(message) {
-    const response = await geminiModel.invoke([
-        new HumanMessage(message)
-    ]);
+// 3. Search function with limit
+export const searchInternet = async ({ query }) => {
+  try {
+    const cleanQuery = String(query || "").trim().slice(0, 350);
+    const response = await tvly.search(cleanQuery, { maxResults: 3, searchDepth: "advanced" });
+    return response?.results?.length > 0 
+      ? response.results.map((r, i) => `[${i + 1}]: ${r.title}\n${r.content}`).join("\n")
+      : "No results.";
+  } catch { return "No internet."; }
+};
 
-    return response.text;
+// 4. Invocation logic with 30s timeout
+async function invokeWithFallback(formattedMessages) {
+  for (const modelSlug of FREE_MODELS_POOL) {
+    try {
+      console.log(`🤖 Using model: ${modelSlug}`);
+      const modelInstance = createModelInstance(modelSlug);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); 
 
+      const response = await modelInstance.invoke(formattedMessages, { signal: controller.signal });
+      
+      clearTimeout(timeoutId);
+      return response;
+    } catch (e) {
+      console.warn(`⚠️ Model ${modelSlug} failed or timed out.`);
+    }
+  }
+  throw new Error("All available AI models failed to respond.");
 }
 
+// 5. Main Generation Function
+export async function genertaeResponse(messages) {
+  const userMessages = messages.filter(msg => msg.role === 'user');
+  let searchQuery = userMessages[userMessages.length - 1]?.content || "";
+
+  if (userMessages.length > 1 && searchQuery.length < 30) {
+    searchQuery = `${userMessages[userMessages.length - 2].content} ${searchQuery}`;
+  }
+
+  const searchResults = await searchInternet({ query: searchQuery });
+  const formattedMessages = [new SystemMessage("You are a helpful assistant.")];
+
+  messages.forEach((msg) => {
+    formattedMessages.push(msg.role === "user" ? new HumanMessage(msg.content) : new AIMessage(msg.content));
+  });
+
+  if (!searchResults.includes("No internet")) {
+    const lastIdx = formattedMessages.length - 1;
+    formattedMessages[lastIdx] = new HumanMessage(`Context from Internet:\n${searchResults}\n\nQuestion: ${formattedMessages[lastIdx].content}`);
+  }
+
+  const response = await invokeWithFallback(formattedMessages);
+  return response.content;
+}
+
+// 6. Title Generator
 export async function generateChatTitle(message) {
-    const response = await mistralModel.invoke([
-        new SystemMessage(`  You are a helpful assistant that generates conscious and descriptive titles for the chat conversation.
-            
-            User will provide you with the first message of the chat conversion, And you will generate a title that capture the essence of the conversation in 2 to four words The title should be clear relevant and engaging ,giving user a quick understanding of the chat's Topic. 
-            `),
-        new HumanMessage(` Generate a title for website conversation based on the following first message: "${message}"`)
-    ])
-    return response.text;
+  try {
+    const prompt = [new SystemMessage("Short title (max 3 words)."), new HumanMessage(message)];
+    const response = await invokeWithFallback(prompt);
+    return response.content.replace(/['"*#]/g, "").trim();
+  } catch { return "New Chat"; }
 }
-
