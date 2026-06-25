@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/CODE/Desktop/software-engineering-journey/Projects/LinkedIn/frontend/src/pages/login/index.jsx"],"sourcesContent":["import React from 'react'\r\n\r\nconst Login = () => {\r\n  return (\r\n e   \r\n    <User\r\n  )\r\n}\r\n\r\nexport default Login\r\n"],"names":["Login","e","User"],"mappings":";;;;AAAA;;AAEA,MAAMA,QAAQ;IACZ,OACDC,IACIC;AAEL;uCAEeF"}}]
-}
