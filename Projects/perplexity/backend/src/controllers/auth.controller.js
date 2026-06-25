@@ -105,12 +105,12 @@ export async function register(req, res) {
  * @route GET /api/auth/verify-email
  * @access Public
  */
+
 export async function verifyEmail(req, res) {
   const { token } = req.query;
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const user = await userModel.findById(decoded.userId);
 
     if (!user) {
@@ -121,12 +121,13 @@ export async function verifyEmail(req, res) {
     }
 
     if (user.verified) {
-      res.send(`
-  <h1>Email Verified Successfully 🎉</h1>
-  <p>Your email has been verified.</p>
-  <p>You can now log in to your account.</p>
-  <a href="${process.env.FRONTEND_URL}/login">Go to Login</a>
-`);
+      // Yahan 'return' lagana zaroori hai!
+      return res.send(`
+        <h1>Email Already Verified ✅</h1>
+        <p>Your account has already been verified.</p>
+        <p>You can now log in to your account.</p>
+        <a href="${process.env.FRONTEND_URL}/login">Go to Login</a>
+      `);
     }
 
     user.verified = true;
@@ -136,8 +137,9 @@ export async function verifyEmail(req, res) {
       <h1>Email Verified Successfully 🎉</h1>
       <p>Your email has been verified.</p>
       <p>You can now log in to your account.</p>
-      <a href="/login">Go to Login</a>
-    `);
+      <a href="${process.env.FRONTEND_URL}/login">Go to Login</a> 
+    `); 
+    // Upar wale href mein bhi FRONTEND_URL add kar diya
   } catch (err) {
     res.status(400).json({
       message: "Invalid or expired token",
