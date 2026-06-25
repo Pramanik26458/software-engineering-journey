@@ -17,17 +17,17 @@ export function initSocket(httpServer) {
   console.log("✓ Socket.IO server is running");
 
   io.on("connection", (socket) => {
-    console.log("A user connected:", socket.id);
+    console.log("User Connected:", socket.id);
 
     socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
+      console.log("User Disconnected:", socket.id);
     });
   });
 }
 
 export function getIO() {
   if (!io) {
-    throw new Error("Socket.io not initialized");
+    throw new Error("Socket.IO not initialized");
   }
 
   return io;
