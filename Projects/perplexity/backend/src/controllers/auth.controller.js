@@ -154,50 +154,27 @@ export async function verifyEmail(req, res) {
    * @returns { message, success, token }
  */
 
-export async function login(req,res){
-  const user = await userModel.findOne({email:req.body.email});
+export async function login(req, res) {
+  const { email, password } = req.body;
+  const user = await userModel.findOne({ email });
 
-  if(!user){
-    return res.status(400).json({
-      message:"Invalid email or password",
-      success:false
-    });
-  }
+  if (!user) return res.status(400).json({ message: "Invalid credentials", success: false });
 
-  if(!user.verified){
-    return res.status(400).json({
-      message:"Please verify your email before logging in",
-      success:false
-    });
-  }
-  
-  
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials", success: false });
 
-  const token=jwt.sign({
-    id:user._id,
-    username:user.username
-  },process.env.JWT_SECRET,{
-    expiresIn:'7d'    
-  })
+  if (!user.verified) return res.status(400).json({ message: "Please verify email", success: false });
 
-  res.cookie('token',token,{
-    httpOnly:true,
-    secure:process.env.NODE_ENV==='production',
-    sameSite:'strict',
-    maxAge:7*24*60*60*1000
-  })
+  const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-  res.status(200).json({
-    message:"Login successful",
-    success:true,
-    user:{
-      id:user._id,
-      username:user.username,
-      email:user.email
-    }
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: true,       
+    sameSite: 'none',   
+    maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
-
+  res.status(200).json({ message: "Login successful", success: true, user: { id: user._id, username: user.username, email: user.email } });
 }
 
 
