@@ -7,20 +7,19 @@ import chatRouter from './routes/chat.route.js';
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
+
+// PROD CORS FIX
 app.use(cors({
-  // "*" ke badle apna specific domain likho
-  origin: "https://software-engineering-journey.vercel.app", 
-  credentials: true, // Ye true rehna chahiye
+  origin: process.env.FRONTEND_URL || "https://software-engineering-journey.vercel.app",
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Routes
 app.use('/api/auth', authRouter);
 app.use('/api/chats', chatRouter);
 

@@ -38,7 +38,7 @@ export async function register(req, res) {
       { expiresIn: "30d" }
     );
 
-const verificationLink = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${emailVerificationToken}`;
+    const verificationLink = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${emailVerificationToken}`;
 
     try {
       await sendEmail({
@@ -121,11 +121,12 @@ export async function verifyEmail(req, res) {
     }
 
     if (user.verified) {
-      return res.send(`
-        <h1>Email Already Verified ✅</h1>
-        <p>Your account has already been verified.</p>
-        <a href="/login">Go to Login</a>
-      `);
+      res.send(`
+  <h1>Email Verified Successfully 🎉</h1>
+  <p>Your email has been verified.</p>
+  <p>You can now log in to your account.</p>
+  <a href="${process.env.FRONTEND_URL}/login">Go to Login</a>
+`);
     }
 
     user.verified = true;
@@ -158,47 +159,45 @@ export async function login(req, res) {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email });
 
-  if (!user) return res.status(400).json({ message: "Invalid credentials", success: false });
-
-  const isMatch = await user.comparePassword(password);
-  if (!isMatch) return res.status(400).json({ message: "Invalid credentials", success: false });
+  if (!user || !(await user.comparePassword(password))) {
+    return res.status(400).json({ message: "Invalid credentials", success: false });
+  }
 
   if (!user.verified) return res.status(400).json({ message: "Please verify email", success: false });
 
   const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+
   res.cookie('token', token, {
     httpOnly: true,
-    secure: true,       
-    sameSite: 'none',   
+    secure: true,
+    sameSite: 'none',
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
   res.status(200).json({ message: "Login successful", success: true, user: { id: user._id, username: user.username, email: user.email } });
 }
-
-
 /**
  * @description Get current logged in user's profile
  * @route GET /api/auth/get-me
  * @access Private
  */
 
-export  async function getMe(req,res){
-  const userId=req.user.id;
-  const user=await userModel.findById(userId).select('-password');
+export async function getMe(req, res) {
+  const userId = req.user.id;
+  const user = await userModel.findById(userId).select('-password');
 
-  if(!user){
+  if (!user) {
     return res.status(404).json({
-      message:"User not found",
-      success:false
+      message: "User not found",
+      success: false
     });
   }
   res.status(200).json({
-    message:"User profile fetched successfully",
-    success:true,
+    message: "User profile fetched successfully",
+    success: true,
     user
   });
 
-  
+
 }
