@@ -13,10 +13,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    "http://localhost:5173",
+    process.env.FRONTEND_URL
+  ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
 }));
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Perplexity Backend is running...."
+  });
+});
 
 // Routes
 app.use('/api/auth', authRouter);
