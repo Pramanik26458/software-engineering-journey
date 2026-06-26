@@ -19,25 +19,19 @@ export const handleValidationErrors = (req, res, next) => {
 export const registerValidator = [
   body("username")
     .trim()
-    .notEmpty()
-    .withMessage("Username is required")
-    .isLength({ min: 3 })
-    .withMessage("Username must be at least 3 characters long")
-    .isLength({ max: 30 })
-    .withMessage("Username must not exceed 30 characters")
-    .matches(/^[a-zA-Z0-9_-]+$/)
-    .withMessage(
-      "Username can only contain alphanumeric characters, underscores, and hyphens"
+    .notEmpty().withMessage("Username is required")
+    .isLength({ min: 3 }).withMessage("Username must be at least 3 characters")
+    .isLength({ max: 30 }).withMessage("Username cannot exceed 30 characters")
+    .matches(/^[a-zA-Z0-9._@-]+$/).withMessage(
+      "Username can only contain letters, numbers, dots, @, underscores and hyphens"
     ),
 
   body("email")
     .trim()
-    .notEmpty()
-    .withMessage("Email is required")
-    .isEmail()
-    .withMessage("Please provide a valid email address")
+    .notEmpty().withMessage("Email is required")
+    .isEmail().withMessage("Please provide a valid email address")
     .normalizeEmail(),
-
+    
   body("password")
     .notEmpty()
     .withMessage("Password is required")
