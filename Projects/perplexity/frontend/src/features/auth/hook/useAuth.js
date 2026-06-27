@@ -11,7 +11,7 @@ export function useAuth() {
       dispatch(setLoading(true));
       dispatch(setError(null));
       const data = await register({ email, username, password });
-      dispatch(setUser(data.user));
+      // Do NOT set user in state on registration — user must verify email first
       return data;
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Registration failed';

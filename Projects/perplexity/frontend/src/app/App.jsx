@@ -9,6 +9,7 @@ function App() {
  
   useEffect(() => {
     auth.handleGetMe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const themeMode = useSelector((state) => state.theme.mode);

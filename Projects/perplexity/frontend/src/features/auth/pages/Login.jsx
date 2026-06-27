@@ -64,7 +64,12 @@ export default function Login() {
       await handleLogin({ email: form.email, password: form.password });
       navigate("/dashboard", { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid email or password.");
+      const data = err.response?.data;
+      if (data?.unverified) {
+        setError("Your email is not verified yet. Please check your inbox and click the verification link.");
+      } else {
+        setError(data?.message || "Invalid email or password.");
+      }
     } finally {
       setLoading(false);
     }

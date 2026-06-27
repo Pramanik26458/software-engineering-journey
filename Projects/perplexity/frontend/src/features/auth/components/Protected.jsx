@@ -7,15 +7,37 @@ const Protected = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#07090f] dark:bg-[#07090f] bg-slate-50">
-        <div className="flex flex-col items-center gap-4">
-          {/* Animated pulse ring */}
-          <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-cyan-500/30 animate-ping absolute inset-0" />
-            <div className="w-12 h-12 rounded-full border-2 border-t-cyan-400 border-r-violet-400 border-b-cyan-400/20 border-l-violet-400/20 animate-spin" />
-          </div>
-          <p className="text-slate-400 text-sm tracking-widest uppercase">Authenticating</p>
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#111113',
+        flexDirection: 'column',
+        gap: '16px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", sans-serif',
+      }}>
+        <div style={{ position: 'relative', width: 48, height: 48 }}>
+          <div style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: '2px solid rgba(255,255,255,.08)',
+            borderTopColor: 'rgba(255,255,255,.7)',
+            animation: 'spin .7s linear infinite',
+            position: 'absolute',
+          }} />
         </div>
+        <p style={{
+          color: 'rgba(255,255,255,.35)',
+          fontSize: 12,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          margin: 0,
+        }}>
+          Authenticating…
+        </p>
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
       </div>
     );
   }

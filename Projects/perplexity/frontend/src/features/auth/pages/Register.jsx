@@ -65,8 +65,8 @@ export default function Register() {
         email: form.email,
         password: form.password,
       });
-      setSuccess("Account created! Taking you to sign in…");
-      setTimeout(() => navigate("/login"), 1400);
+      setSuccess("Account created! Please check your email to verify your account before signing in.");
+      setTimeout(() => navigate("/login"), 3000);
     } catch (err) {
       setError(
         err.response?.data?.message || "Registration failed. Please try again.",

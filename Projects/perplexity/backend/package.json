@@ -9,7 +9,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "@langchain/google-genai": "^2.1.31",
+    "@langchain/google-genai": "^2.2.0",
     "@langchain/mistralai": "^1.1.0",
     "@langchain/openai": "^1.5.3",
     "@tavily/core": "^0.7.6",

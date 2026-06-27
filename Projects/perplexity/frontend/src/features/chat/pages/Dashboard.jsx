@@ -115,12 +115,14 @@ function Bubble({ msg, chatId, onFeedback, onRegen, isLast }) {
                   ul: ({ children }) => <ul>{children}</ul>,
                   ol: ({ children }) => <ol>{children}</ol>,
                   li: ({ children }) => <li>{children}</li>,
-                  code: ({ inline, children }) =>
-                    inline ? (
-                      <code className="ic">{children}</code>
+                  code: ({ node, className, children, ...props }) => {
+                    const isInline = !className;
+                    return isInline ? (
+                      <code className="ic" {...props}>{children}</code>
                     ) : (
-                      <code>{children}</code>
-                    ),
+                      <code {...props}>{children}</code>
+                    );
+                  },
                   pre: ({ children }) => <pre className="cb">{children}</pre>,
                   blockquote: ({ children }) => (
                     <blockquote className="bq">{children}</blockquote>
@@ -493,7 +495,7 @@ const Dashboard = () => {
   };
 
   const lastAiIdx = messages
-    .map((m, i) => (m.role === "assistant" ? i : -1))
+    .map((m, i) => (m.role === "assistant" || m.role === "ai" ? i : -1))
     .filter((i) => i !== -1)
     .at(-1);
 
@@ -829,7 +831,7 @@ const Dashboard = () => {
                   chatId={currentChatId}
                   onFeedback={handleMessageFeedback}
                   onRegen={handleRegenerateResponse}
-                  isLast={i === lastAiIdx && msg.role === "assistant"}
+                  isLast={i === lastAiIdx}
                 />
               ))
             )}
@@ -923,7 +925,7 @@ const Dashboard = () => {
         .dark{
           --bg:#111111;--bg2:#181819;
           --b:rgba(255,255,255,.1);--b2:rgba(255,255,255,.4);
-          --t:#ececec;--t2:rgba(255,255,255,.5);--t3:rgba(255,255,255,5);
+          --t:#ececec;--t2:rgba(255,255,255,.5);--t3:rgba(255,255,255,.28);
           --ub:#222226;--ut:#ececec;--ab:#18181b;
           --sbg:#e2e2e2;--sfg:#000;
           --ic-bg:rgba(255,255,255,.07);--av-bg:rgba(255,255,255,.1);
@@ -933,7 +935,7 @@ const Dashboard = () => {
         .light{
           --bg:#f4f4f5;--bg2:#fff;
           --b:rgba(0,0,0,.08);--b2:rgba(0,0,0,.13);
-          --t:1451;--t2:rgba(0,0,0,.5);--t3:rgba(0,0,0,.28);
+          --t:#141414;--t2:rgba(0,0,0,.5);--t3:rgba(0,0,0,.28);
           --ub:#111;--ut:#fff;--ab:#fff;
           --sbg:#111;--sfg:#fff;
           --ic-bg:rgba(0,0,0,.05);--av-bg:rgba(0,0,0,.08);
