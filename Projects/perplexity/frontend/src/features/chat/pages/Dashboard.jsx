@@ -424,7 +424,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 640);
   const [loadingId, setLoadingId] = useState(null); // which chat is being loaded
   const [delTarget, setDelTarget] = useState(null);
   const [hoverId, setHoverId] = useState(null);
@@ -471,6 +471,8 @@ const Dashboard = () => {
   // ── Open chat ─────────────────────────────────────────────────────
   const openChat = async (chatId) => {
     setLoadingId(chatId);
+    // Close sidebar on mobile after selecting a chat
+    if (window.innerWidth <= 640) setSidebarOpen(false);
     try {
       await handleOpenChat(chatId);
     } finally {
@@ -547,9 +549,15 @@ const Dashboard = () => {
 
   return (
     <div className={`root ${isDark ? "dark" : "light"}`}>
-      {/* ── SIDEBAR ────────────────────────────────────────────────── */}
+      {/* ── MOBILE OVERLAY BACKDROP ────────────────────────────────── */}
       {sidebarOpen && (
-        <aside className="sb">
+        <div
+          className="sb-backdrop"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      {/* ── SIDEBAR ────────────────────────────────────────────────── */}
+      <aside className={`sb${sidebarOpen ? " sb-open" : ""}`} style={window.innerWidth > 640 ? {display: sidebarOpen ? undefined : 'none'} : undefined}>
           <div className="sb-top">
             <div className="brand">
               <div className="brand-icon">
@@ -690,33 +698,18 @@ const Dashboard = () => {
             isDark={isDark}
           />
         </aside>
-      )}
 
       {/* ── MAIN ───────────────────────────────────────────────────── */}
       <main className="main">
         <header className="topbar">
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            {!sidebarOpen && (
-              <>
-                <button className="ib" onClick={() => setSidebarOpen(true)}>
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                  </svg>
-                </button>
-                <button className="ib" onClick={() => dispatch(toggleTheme())}>
-                  <ThemeIcon />
-                </button>
-              </>
-            )}
+            <button className="ib hamburger" onClick={() => setSidebarOpen(o => !o)}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
             <span className="topbar-title">
               {currentChatId && chats[currentChatId]
                 ? chats[currentChatId].title
@@ -949,7 +942,7 @@ const Dashboard = () => {
           font-size:14px;line-height:1.6;transition:background .22s,color .22s}
 
         /* Sidebar */
-        .sb{width:252px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--b);
+        .sb{width:252px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;height:100vh;overflow:hidden;
           display:flex;flex-direction:column;padding:14px 10px;gap:6px;
           animation:slin .3s cubic-bezier(.22,1,.36,1) both}
         @keyframes slin{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
@@ -1145,12 +1138,28 @@ const Dashboard = () => {
         .modal-yes:hover{opacity:.88;transform:translateY(-1px)}
 
         @media(max-width:640px){
-          .sb{display:none}
+          .sb{
+            position:fixed;top:0;left:0;height:100dvh;z-index:200;width:252px;
+            transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);
+          }
+          .sb.sb-open{
+            transform:translateX(0);
+            box-shadow:4px 0 32px rgba(0,0,0,.5);
+          }
+          .sb-backdrop{
+            display:block;
+            position:fixed;inset:0;z-index:199;
+            background:rgba(0,0,0,.55);
+            backdrop-filter:blur(2px);
+            animation:bdin .2s ease;
+          }
+          @keyframes bdin{from{opacity:0}to{opacity:1}}
           .mrow{padding:6px 12px}
           .inp-wrap{padding:10px 12px 14px}
           .topbar{padding:11px 14px}
           .chips{grid-template-columns:1fr}
         }
+        .sb-backdrop{display:none}
       `}</style>
     </div>
   );
