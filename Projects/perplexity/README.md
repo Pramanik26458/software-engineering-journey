@@ -61,7 +61,7 @@ I built the entire auth flow myself — no Auth0, no Firebase, no shortcuts.
 ### 🔍 Real-Time Web Search (Tavily)
 This is what makes it feel like Perplexity — the AI can search the web.
 
-I built a keyword detection system that automatically decides when a query needs live data:
+I built a yourword detection system that automatically decides when a query needs live data:
 
 ```
 "What is the IPL score today?"     → triggers web search ✅
@@ -266,7 +266,7 @@ const MODEL_POOL = [
 ]
 
 // For every message:
-1. Check if query needs web search (keyword detection)
+1. Check if query needs web search (yourword detection)
 2. If yes → call Tavily → get top 4 results with sources
 3. Build system prompt (with or without search results)
 4. Send full conversation history to AI model
@@ -305,8 +305,8 @@ const MODEL_POOL = [
 ### Prerequisites
 - Node.js v18+
 - A MongoDB Atlas account (free)
-- A Gemini API key from [aistudio.google.com](https://aistudio.google.com) (free)
-- A Tavily API key from [tavily.com](https://tavily.com) (free)
+- A Gemini API  from [aistudio.google.com](https://aistudio.google.com) (free)
+- A Tavily API  from [tavily.com](https://tavily.com) (free)
 
 ### 1. Clone the repo
 
@@ -328,18 +328,18 @@ Create a `.env` file inside `backend/`:
 PORT=3000
 NODE_ENV=development
 MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/perplexity
-JWT_SECRET=your_long_random_secret_here
+JWT_SECRET=long_random_secret_here
 BACKEND_URL=http://localhost:3000
 FRONTEND_URL=http://localhost:5173
 
 # Email
-GOOGLE_USER=yourgmail@gmail.com
-GMAIL_APP_PASSWORD=your_16_char_app_password
+GOOGLE_USER=gmail@gmail.com
+GMAIL_APP_PASSWORD=_16_char_app_password
 
 # AI
-GEMINI_API_KEY=your_gemini_key
-OPENROUTER_API_KEY=your_openrouter_key
-TAVILY_API_KEY=your_tavily_key
+GEMINI_API=gemini
+OPENROUTER_API=openrouter
+TAVILY_API_KEY=tavily_
 ```
 
 ```bash
@@ -375,7 +375,7 @@ Open [http://localhost:5173](http://localhost:5173)
 | Backend | Render | Root: `backend`, Build: `npm install`, Start: `node server.js` |
 | Database | MongoDB Atlas | Free M0 cluster, IP whitelist: `0.0.0.0/0` |
 
-**Important:** After deploying both, set `VITE_API_URL` on Vercel to your Render URL and `FRONTEND_URL` on Render to your Vercel URL. Without this CORS will block all requests.
+
 
 ---
 
