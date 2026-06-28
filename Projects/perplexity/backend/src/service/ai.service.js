@@ -7,11 +7,10 @@ import { tavily } from "@tavily/core";
 // ── Tavily ────────────────────────────────────────────────────────────────────
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-// ── Model registry — uses YOUR direct API keys, fastest first ────────────────
+// ── Model registry ────────────────────────────────────────────────────────────
 function buildModelPool() {
   const pool = [];
 
-  // 1. Gemini 2.0 Flash — fastest, your own key, no rate queue
   if (process.env.GEMINI_API_KEY) {
     pool.push({
       name: "Gemini 2.0 Flash",
@@ -24,7 +23,6 @@ function buildModelPool() {
     });
   }
 
-  // 2. Gemini 1.5 Flash — fallback Gemini
   if (process.env.GEMINI_API_KEY) {
     pool.push({
       name: "Gemini 1.5 Flash",
@@ -37,7 +35,6 @@ function buildModelPool() {
     });
   }
 
-  // 3. Mistral Small — faster
   if (process.env.MISTRAL_API_KEY) {
     pool.push({
       name: "Mistral Small",
@@ -50,7 +47,6 @@ function buildModelPool() {
     });
   }
 
-  // 4. Mistral Large — more powerful, slower as compare to the small
   if (process.env.MISTRAL_API_KEY) {
     pool.push({
       name: "Mistral Large",
@@ -63,7 +59,6 @@ function buildModelPool() {
     });
   }
 
-  // 5. OpenRouter — last resort
   if (process.env.OPENROUTER_API_KEY) {
     pool.push({
       name: "OpenRouter (LLaMA 70B)",
@@ -111,13 +106,7 @@ async function invokeWithFallback(formattedMessages) {
         || err.message?.includes('rate');
 
       console.warn(`⚠️  ${entry.name} failed: ${err.message?.slice(0, 80)}`);
-
-      if (is429) {
-        console.log(`   → Rate limited, trying next model...`);
-        continue;
-      }
-
-      // For non-rate-limit errors, still try next model
+      if (is429) console.log(`   → Rate limited, trying next model...`);
       continue;
     }
   }
@@ -161,27 +150,44 @@ export const searchInternet = async ({ query }) => {
   }
 };
 
+// ── ✅ FIX 1: Helper to get today's date string ───────────────────────────────
+function getTodayString() {
+  return new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  // e.g. "Saturday, June 28, 2026"
+}
+
 // ── Main response generator ───────────────────────────────────────────────────
 export async function generateResponse(messages) {
   const userMessages = messages.filter(msg => msg.role === 'user');
   const latestUserQuery = userMessages[userMessages.length - 1]?.content || "";
 
-  // Build search query with context
   let searchQuery = latestUserQuery;
   if (userMessages.length > 1 && latestUserQuery.length < 40) {
     searchQuery = `${userMessages[userMessages.length - 2].content} ${latestUserQuery}`;
   }
 
-  // Only search when needed
   let searchResults = null;
   if (process.env.TAVILY_API_KEY && needsWebSearch(searchQuery)) {
-    console.log(`🔍 Web search triggered for: "${searchQuery.slice(0, 60)}"`);
-    searchResults = await searchInternet({ query: searchQuery });
+    // ✅ FIX 1: Append today's date to the search query so Tavily
+    //    fetches fresh results instead of cached older ones
+    const datedQuery = `${searchQuery} ${new Date().toISOString().split("T")[0]}`;
+    console.log(`🔍 Web search triggered for: "${datedQuery.slice(0, 60)}"`);
+    searchResults = await searchInternet({ query: datedQuery });
   }
 
-  // System prompt
+  // ✅ FIX 1: Always inject real current date into system prompt
+  const today = getTodayString();
+
   const systemPrompt = searchResults
     ? `You are Perplexity, a helpful AI assistant with access to real-time web search results.
+
+TODAY'S DATE: ${today}
+Always use this date as the current date. Never assume or guess a different date.
 
 Web Search Results:
 ${searchResults}
@@ -193,6 +199,9 @@ Instructions:
 - Format responses in clean Markdown (headings, bullets, bold, code blocks)
 - Be concise but comprehensive`
     : `You are Perplexity, a helpful AI assistant for research, writing, coding, and analysis.
+
+TODAY'S DATE: ${today}
+Always use this date as the current date. Never assume or guess a different date.
 
 Format responses in clean Markdown — use headings, bullet points, bold text, and code blocks where appropriate. Be concise yet thorough.`;
 
