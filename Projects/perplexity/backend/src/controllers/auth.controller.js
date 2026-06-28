@@ -30,9 +30,14 @@ export async function register(req, res) {
       { expiresIn: "30d" }
     );
 
+    // ✅ FIX: Use BACKEND_URL env var (your Render backend URL, not Vercel)
+    // Make sure BACKEND_URL is set in Render dashboard env vars like:
+    // BACKEND_URL=https://your-backend-name.onrender.com
     const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3000}`;
     const verificationLink = `${backendUrl}/api/auth/verify-email?token=${emailVerificationToken}`;
 
+    // ✅ FIX: Don't silently swallow email errors — tell the user if it failed
+    //    so they know to contact support instead of wondering why nothing arrived
     try {
       await sendEmail({
         to: email,
@@ -58,20 +63,31 @@ export async function register(req, res) {
           </div>
         `,
       });
+
+      // ✅ Email sent successfully
+      return res.status(201).json({
+        message: "Account created! Please check your email to verify your account.",
+        success: true,
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          verified: user.verified,
+        },
+      });
+
     } catch (emailError) {
-      console.warn("Email could not be sent, but user was created:", emailError.message);
+      // ✅ FIX: Email failed — delete the created user so they can try again
+      //    Otherwise they get stuck: account exists but no verification email
+      console.error("❌ Verification email failed:", emailError.message);
+      await userModel.findByIdAndDelete(user._id);
+
+      return res.status(500).json({
+        message: "Account created but verification email could not be sent. Please try registering again.",
+        success: false,
+      });
     }
 
-    res.status(201).json({
-      message: "User registered successfully. Please check your email to verify your account.",
-      success: true,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        verified: user.verified,
-      },
-    });
   } catch (err) {
     console.error("Register error:", err);
     res.status(500).json({
