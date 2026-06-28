@@ -424,7 +424,20 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 640);
+
+  // Update isMobile on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 640;
+      setIsMobile(mobile);
+      // Auto-open sidebar when switching to desktop
+      if (!mobile) setSidebarOpen(true);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [loadingId, setLoadingId] = useState(null); // which chat is being loaded
   const [delTarget, setDelTarget] = useState(null);
   const [hoverId, setHoverId] = useState(null);
@@ -472,7 +485,7 @@ const Dashboard = () => {
   const openChat = async (chatId) => {
     setLoadingId(chatId);
     // Close sidebar on mobile after selecting a chat
-    if (window.innerWidth <= 640) setSidebarOpen(false);
+    if (isMobile) setSidebarOpen(false);
     try {
       await handleOpenChat(chatId);
     } finally {
@@ -550,14 +563,14 @@ const Dashboard = () => {
   return (
     <div className={`root ${isDark ? "dark" : "light"}`}>
       {/* ── MOBILE OVERLAY BACKDROP ────────────────────────────────── */}
-      {sidebarOpen && (
+      {isMobile && sidebarOpen && (
         <div
           className="sb-backdrop"
           onClick={() => setSidebarOpen(false)}
         />
       )}
       {/* ── SIDEBAR ────────────────────────────────────────────────── */}
-      <aside className={`sb${sidebarOpen ? " sb-open" : ""}`} style={window.innerWidth > 640 ? {display: sidebarOpen ? undefined : 'none'} : undefined}>
+      <aside className={`sb${sidebarOpen ? " sb-open" : ""}`} style={!isMobile ? {display: sidebarOpen ? 'flex' : 'none'} : undefined}>
           <div className="sb-top">
             <div className="brand">
               <div className="brand-icon">
@@ -1137,10 +1150,13 @@ const Dashboard = () => {
           transition:opacity .14s,transform .14s}
         .modal-yes:hover{opacity:.88;transform:translateY(-1px)}
 
+        .sb-backdrop{display:none}
         @media(max-width:640px){
           .sb{
             position:fixed;top:0;left:0;height:100dvh;z-index:200;width:252px;
-            transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);
+            transform:translateX(-100%);
+            transition:transform .25s cubic-bezier(.4,0,.2,1);
+            display:flex !important;
           }
           .sb.sb-open{
             transform:translateX(0);
@@ -1159,7 +1175,6 @@ const Dashboard = () => {
           .topbar{padding:11px 14px}
           .chips{grid-template-columns:1fr}
         }
-        .sb-backdrop{display:none}
       `}</style>
     </div>
   );

@@ -1,154 +1,144 @@
 <div align="center">
 
-# 🔍 Perplexity AI Clone
+<img src="./frontend/public/logo.svg" width="60" height="60" alt="Perplexity Logo" />
 
-### A full-stack AI-powered search and chat assistant built with the MERN stack
+# Perplexity AI Clone
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-black?style=for-the-badge&logo=vercel)](https://perplexity-ai-chat.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/Pramanik26458/software-engineering-journey)
+**An AI-powered search and chat assistant — built from scratch by Basak Pramanik**
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-perplexity--ai--chat.vercel.app-black?style=for-the-badge&logo=vercel)](https://perplexity-ai-chat.vercel.app)
+[![GitHub](https://img.shields.io/badge/Source-GitHub-black?style=for-the-badge&logo=github)](https://github.com/Pramanik26458/software-engineering-journey)
+
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
+![Express](https://img.shields.io/badge/Express_v5-000000?style=flat&logo=express&logoColor=white)
 ![Redux](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=flat&logo=redux&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=flat&logo=socket.io&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socket.io)
 
 </div>
 
 ---
 
-## 📌 Table of Contents
+## 👋 About This Project
 
-- [Overview](#-overview)
-- [Live Demo](#-live-demo)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Architecture](#-architecture)
-- [AI Models](#-ai-models)
-- [Authentication Flow](#-authentication-flow)
-- [API Reference](#-api-reference)
-- [Environment Variables](#-environment-variables)
-- [Getting Started](#-getting-started)
-- [Deployment](#-deployment)
-- [Screenshots](#-screenshots)
-- [Author](#-author)
+Hi, I'm **Basak Pramanik**, a 4th year Computer Science Engineering student. This is a full-stack clone of [Perplexity AI](https://perplexity.ai) that I built entirely from scratch.
+
+I built this to push myself beyond tutorials and actually learn how a real production AI application works — from JWT authentication and email verification, to integrating multiple AI providers with automatic fallback, to real-time web search that lets the AI answer questions about today's news, cricket scores, Bitcoin prices, and more.
+
+The entire MERN stack is written by me. No starter templates. No boilerplate. Just code I understand line by line.
 
 ---
 
-## 🌟 Overview
+## 🌐 Live Demo
 
-This is a **production-grade Perplexity AI clone** built as a major placement project by a 4th-year Computer Science Engineering student. It replicates the core experience of Perplexity AI — an intelligent assistant that combines large language models with real-time web search to deliver accurate, cited, up-to-date answers.
+👉 **[perplexity-ai-chat.vercel.app](https://perplexity-ai-chat.vercel.app)**
 
-The application supports multiple AI providers, real-time web search via Tavily, persistent chat history, full authentication with email verification, and a polished dark/light mode UI that works across all screen sizes.
-
----
-
-## 🚀 Live Demo
-
-| Platform | URL |
-|----------|-----|
-| **Frontend** | [perplexity-ai-chat.vercel.app](https://perplexity-ai-chat.vercel.app) |
-| **Backend API** | Deployed on Render |
-
-> **Note:** The backend is on Render's free tier. The first request after inactivity may take ~30 seconds to wake up.
+> The backend runs on Render's free tier — the first request after inactivity may take ~30 seconds to wake up. This is normal for free hosting.
 
 ---
 
-## ✨ Features
+## ✨ What I Built
 
-### 🔐 Authentication
-- User registration with email & password
-- Email verification via tokenized link (JWT-based)
-- Secure login with HTTP-only cookie sessions
-- Protected routes — unverified users cannot access the dashboard
-- Logout with complete session cleanup
-- Persistent authentication across page refreshes
+### 🔐 Complete Authentication System
+I built the entire auth flow myself — no Auth0, no Firebase, no shortcuts.
 
-### 🤖 AI Chat
-- Multi-turn conversations with full context history
-- Automatic chat title generation using AI
-- Multiple AI model support with automatic fallback chain
-- Markdown rendering — headings, bullet points, bold, italic, tables
-- Syntax-highlighted code blocks
-- Message like/dislike feedback
+- User registration with username, email and password
+- Passwords hashed with **bcryptjs** before storing
+- Email verification using **JWT tokens** sent via **Nodemailer**
+- Unverified users are blocked from the dashboard with a clear message
+- Login issues an **HTTP-only cookie** (not localStorage — more secure)
+- Session persists across refreshes via `GET /api/auth/get-me`
+- Full logout that clears the cookie and Redux state
+
+### 🤖 Multi-Model AI Chat
+- Integrated **Google Gemini**, **LLaMA 3.3 70B**, and **Gemma 3 27B** using **LangChain**
+- Built a **5-model fallback chain** — if one model hits a rate limit or fails, the next one automatically takes over with zero downtime
+- AI responses render in full **Markdown** — headings, bullet points, bold, code blocks with syntax highlighting, tables
+- Conversation history is sent with every request so the AI remembers context across multiple messages
+- Chat titles are auto-generated by the AI based on the first message
+
+### 🔍 Real-Time Web Search (Tavily)
+This is what makes it feel like Perplexity — the AI can search the web.
+
+I built a keyword detection system that automatically decides when a query needs live data:
+
+```
+"What is the IPL score today?"     → triggers web search ✅
+"Explain recursion"                → uses model knowledge only ✅
+"Bitcoin price right now"          → triggers web search ✅
+"Write me a Python function"       → uses model knowledge only ✅
+```
+
+When search is triggered → Tavily fetches the top 4 results → injected into the AI's system prompt → AI answers with inline citations like [1] [2]
+
+### 💬 Chat Experience
+- Persistent chat history stored in **MongoDB**
+- Sidebar with all previous conversations, sorted by latest
+- Click any past chat to reload the full conversation
+- Delete chats with a confirmation dialog
+- Like / dislike any AI message
 - Copy response to clipboard
 - Auto-scroll to latest message
-
-### 🔍 Real-Time Web Search
-- Powered by **Tavily Search API**
-- Automatically detects when a query needs live data
-- Triggers on keywords: news, today, latest, price, weather, cricket, IPL, Bitcoin, who is, etc.
-- Returns cited sources with inline references [1], [2]
-- Falls back gracefully if search fails
-
-### 💬 Chat Management
-- Persistent chat history stored in MongoDB
-- Sidebar with all previous conversations
-- Click any chat to load full message history
-- Delete individual chats with confirmation dialog
-- New chat starts fresh with a blank canvas
+- Smooth loading states throughout
 
 ### 🎨 UI / UX
-- Dark mode and light mode with smooth transition
-- Fully responsive — mobile, tablet, desktop
-- Mobile sidebar slides in as an overlay drawer
-- Suggestion chips on empty dashboard
-- Professional loading states
-- Real-time socket connection indicator
-- Animated typing indicator while AI generates
+- Fully custom dark mode and light mode — I wrote all the CSS myself, no UI component library
+- Completely responsive — mobile, tablet, and desktop
+- On mobile: sidebar slides in as an overlay drawer with a dark backdrop
+- Suggestion chips on the empty dashboard to help users get started
+- Animated typing dots while the AI is generating
 
 ---
 
 ## 🛠 Tech Stack
 
+I chose every library intentionally. Here's what I used and why:
+
 ### Backend
-| Technology | Purpose |
-|-----------|---------|
-| **Node.js** | JavaScript runtime |
-| **Express.js v5** | Web framework and REST API |
-| **MongoDB + Mongoose** | Database and ODM |
-| **Socket.IO** | Real-time WebSocket communication |
-| **JSON Web Tokens (JWT)** | Authentication and email verification tokens |
-| **bcryptjs** | Password hashing |
-| **Nodemailer** | Transactional email sending |
-| **LangChain** | AI model orchestration and chaining |
-| **Tavily** | Real-time web search API |
-| **express-validator** | Input validation and sanitization |
-| **Morgan** | HTTP request logging |
-| **cookie-parser** | Cookie parsing middleware |
-| **CORS** | Cross-origin resource sharing |
+| Package | Why I used it |
+|---------|--------------|
+| **Node.js + Express v5** | Fast, minimal, I understand it deeply |
+| **MongoDB + Mongoose** | Flexible schema, great for chat data |
+| **Socket.IO** | Real-time connection between client and server |
+| **JSON Web Tokens** | Stateless auth — works across Render + Vercel deployment |
+| **bcryptjs** | Industry standard for password hashing |
+| **Nodemailer** | Send verification emails via Gmail |
+| **LangChain** | Unified interface to call Gemini, OpenRouter models |
+| **Tavily** | Best web search API for AI applications |
+| **express-validator** | Clean input validation on all auth routes |
+| **cookie-parser** | Parse HTTP-only cookies for auth |
+| **Morgan** | HTTP request logging in development |
+| **CORS** | Configured to allow only my Vercel frontend |
 
 ### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| **React 19** | UI library |
-| **Vite 7** | Build tool and dev server |
-| **Redux Toolkit** | Global state management |
-| **React Router v7** | Client-side routing |
-| **Axios** | HTTP client for API calls |
-| **Socket.IO Client** | WebSocket client |
-| **react-markdown** | Markdown rendering in chat |
-| **remark-gfm** | GitHub Flavoured Markdown support |
-| **Framer Motion** | Animations |
-| **GSAP** | Advanced animations |
-| **Tailwind CSS v4** | Utility-first CSS framework |
+| Package | Why I used it |
+|---------|--------------|
+| **React 19** | Latest React with improved rendering |
+| **Vite 7** | Extremely fast dev server and builds |
+| **Redux Toolkit** | Clean global state for auth, chat, theme |
+| **React Router v7** | Client-side routing with protected routes |
+| **Axios** | HTTP client with clean interceptor support |
+| **Socket.IO Client** | WebSocket connection to backend |
+| **react-markdown + remark-gfm** | Render AI responses as rich Markdown |
+| **Framer Motion** | Smooth animations |
+| **Tailwind CSS v4** | Utility classes where needed |
 
-### AI Providers (Free Tier)
-| Provider | Models Used |
-|----------|------------|
-| **Google Gemini** | gemini-2.0-flash, gemini-1.5-flash, gemini-1.5-pro |
-| **OpenRouter** | meta-llama/llama-3.3-70b-instruct:free, google/gemma-3-27b-it:free |
+### AI Models (all free tier)
+| Model | Provider | Role in my app |
+|-------|----------|---------------|
+| Gemini 2.0 Flash | Google AI Studio | Primary — fastest response |
+| Gemini 1.5 Flash | Google AI Studio | First fallback |
+| Gemini 1.5 Pro | Google AI Studio | Second fallback |
+| LLaMA 3.3 70B | OpenRouter | Third fallback |
+| Gemma 3 27B | OpenRouter | Last resort |
 
-### Infrastructure
-| Service | Purpose |
-|---------|---------|
-| **MongoDB Atlas** | Cloud database (free 512MB tier) |
-| **Render** | Backend hosting (free tier) |
-| **Vercel** | Frontend hosting (free tier) |
-| **Tavily** | Web search (1000 req/month free) |
-| **Google AI Studio** | Gemini API key (free) |
+### Hosting (entirely free)
+| Service | What runs there |
+|---------|----------------|
+| **Vercel** | React frontend |
+| **Render** | Node.js backend |
+| **MongoDB Atlas** | Database (512MB free tier) |
 
 ---
 
@@ -156,507 +146,268 @@ The application supports multiple AI providers, real-time web search via Tavily,
 
 ```
 perplexity/
+│
 ├── backend/
-│   ├── server.js                    # Entry point — HTTP + Socket.IO server
+│   ├── server.js                     # Entry — HTTP server + Socket.IO init
+│   ├── .env                          # Environment variables (not in git)
 │   ├── package.json
 │   └── src/
-│       ├── app.js                   # Express app — middleware, CORS, routes
+│       ├── app.js                    # Express setup — CORS, middleware, routes
 │       ├── config/
-│       │   └── database.js          # MongoDB Atlas connection
+│       │   └── database.js           # MongoDB Atlas connection
 │       ├── controllers/
-│       │   ├── auth.controller.js   # Register, login, logout, verify, getMe
-│       │   └── chat.controller.js   # Send message, get chats, get messages, delete, feedback
+│       │   ├── auth.controller.js    # register, login, logout, verifyEmail, getMe
+│       │   └── chat.controller.js    # sendMessage, getChats, getMessages, deleteChat, feedback
 │       ├── middlewares/
-│       │   └── auth.middleware.js   # JWT cookie verification
+│       │   └── auth.middleware.js    # Verify JWT cookie on protected routes
 │       ├── models/
-│       │   ├── user.model.js        # User schema (username, email, password, verified)
-│       │   ├── chat.model.js        # Chat schema (user ref, title, timestamps)
-│       │   └── message.model.js     # Message schema (chat ref, content, role)
+│       │   ├── user.model.js         # User schema + bcrypt hooks
+│       │   ├── chat.model.js         # Chat schema
+│       │   └── message.model.js      # Message schema (role: user | ai)
 │       ├── routes/
-│       │   ├── auth.routes.js       # /api/auth/* routes
-│       │   └── chat.route.js        # /api/chats/* routes
+│       │   ├── auth.routes.js        # /api/auth/*
+│       │   └── chat.route.js         # /api/chats/*
 │       ├── service/
-│       │   ├── ai.service.js        # LangChain AI orchestration + Tavily search
-│       │   ├── mail.service.js      # Nodemailer email sending
-│       │   └── internet.service.js  # Web search helper
+│       │   ├── ai.service.js         # LangChain model pool + Tavily integration
+│       │   └── mail.service.js       # Nodemailer email sender
 │       ├── socket/
-│       │   └── server.socket.js     # Socket.IO initialization and event handlers
+│       │   └── server.socket.js      # Socket.IO server setup
 │       └── validators/
-│           └── auth.validator.js    # express-validator rules for auth routes
+│           └── auth.validator.js     # express-validator rules
 │
 └── frontend/
-    ├── index.html                   # Entry HTML with favicon
-    ├── vite.config.js               # Vite configuration
-    ├── vercel.json                  # Vercel SPA rewrite rules
+    ├── index.html                    # Root HTML — custom favicon
+    ├── vite.config.js
+    ├── vercel.json                   # SPA rewrite rules for Vercel
     ├── package.json
     └── src/
-        ├── main.jsx                 # React entry point
+        ├── main.jsx                  # React entry point
         ├── app/
-        │   ├── App.jsx              # Root component — loads user on mount
-        │   ├── App.routes.jsx       # All route definitions
-        │   ├── app.store.js         # Redux store configuration
-        │   └── index.css            # Global styles
+        │   ├── App.jsx               # Root — loads user session on mount
+        │   ├── App.routes.jsx        # All routes
+        │   ├── app.store.js          # Redux store
+        │   └── index.css             # Global styles
         └── features/
             ├── auth/
-            │   ├── auth.slice.js          # Redux slice — user, loading, error state
-            │   ├── hook/useAuth.js        # Auth actions hook
-            │   ├── service/auth.api.js    # Axios calls to /api/auth
+            │   ├── auth.slice.js           # user, loading, error state
+            │   ├── hook/useAuth.js         # register, login, logout, getMe actions
+            │   ├── service/auth.api.js     # Axios calls to /api/auth
             │   ├── components/
-            │   │   └── Protected.jsx      # Route guard component
+            │   │   └── Protected.jsx       # Redirect to login if not authenticated
             │   └── pages/
-            │       ├── Login.jsx          # Login page
-            │       └── Register.jsx       # Registration page
+            │       ├── Login.jsx
+            │       └── Register.jsx
             ├── chat/
-            │   ├── chat.slice.js          # Redux slice — chats, messages, loading
-            │   ├── hooks/useChat.js       # Chat actions hook
+            │   ├── chat.slice.js           # chats, messages, loading state
+            │   ├── hooks/useChat.js        # sendMessage, getChats, openChat actions
             │   ├── service/
-            │   │   ├── chat.api.js        # Axios calls to /api/chats
-            │   │   └── chat.soket.js      # Socket.IO client connection
+            │   │   ├── chat.api.js         # Axios calls to /api/chats
+            │   │   └── chat.soket.js       # Socket.IO client
             │   └── pages/
-            │       └── Dashboard.jsx      # Main chat interface (sidebar + chat)
+            │       └── Dashboard.jsx       # Main chat UI — sidebar + chat area
             └── theme/
-                └── theme.slice.js         # Redux slice — dark/light mode
+                └── theme.slice.js          # dark / light mode toggle
 ```
 
 ---
 
-## 🏗 Architecture
+## 🔐 How Authentication Works
+
+I built the whole flow myself without any auth library:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                        CLIENT (Vercel)                       │
-│                                                             │
-│   React 19 + Redux Toolkit + React Router v7                │
-│   ┌──────────┐  ┌──────────┐  ┌─────────────────────────┐  │
-│   │  Login   │  │ Register │  │       Dashboard          │  │
-│   │  Page    │  │  Page    │  │  Sidebar  │  Chat Area   │  │
-│   └──────────┘  └──────────┘  └─────────────────────────┘  │
-│         │              │                    │               │
-│    Axios (REST)    Axios (REST)     Axios + Socket.IO       │
-└─────────┼──────────────┼────────────────────┼───────────────┘
-          │              │                    │
-          ▼              ▼                    ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     SERVER (Render)                          │
-│                                                             │
-│   Express.js v5  +  Socket.IO                               │
-│   ┌──────────────────┐  ┌──────────────────────────────┐   │
-│   │   Auth Routes    │  │        Chat Routes            │   │
-│   │  /api/auth/*     │  │       /api/chats/*            │   │
-│   └──────────────────┘  └──────────────────────────────┘   │
-│         │                          │                        │
-│   JWT Middleware             Auth Middleware                 │
-│         │                          │                        │
-│   ┌─────▼──────┐         ┌────────▼────────┐              │
-│   │   Auth     │         │  Chat           │               │
-│   │ Controller │         │  Controller     │               │
-│   └────────────┘         └────────┬────────┘              │
-│                                   │                         │
-│                          ┌────────▼────────┐               │
-│                          │   AI Service    │               │
-│                          │  (LangChain)    │               │
-│                          └────────┬────────┘               │
-└───────────────────────────────────┼─────────────────────────┘
-                                    │
-           ┌────────────────────────┼────────────────────────┐
-           │                        │                        │
-           ▼                        ▼                        ▼
-   ┌──────────────┐     ┌──────────────────┐     ┌─────────────────┐
-   │  MongoDB     │     │  Google Gemini   │     │  Tavily Search  │
-   │  Atlas       │     │  OpenRouter      │     │  (Web Search)   │
-   │  (Database)  │     │  (AI Models)     │     │  (Live Data)    │
-   └──────────────┘     └──────────────────┘     └─────────────────┘
-```
+REGISTER
+User submits form
+  → express-validator checks input
+  → bcryptjs hashes password (10 salt rounds)
+  → saved to MongoDB with verified: false
+  → JWT signed (30 day expiry) as email token
+  → Nodemailer sends verification email:
+    {BACKEND_URL}/api/auth/verify-email?token={jwt}
+  → User sees success message
 
----
-
-## 🤖 AI Models
-
-The application uses a **fallback chain** — if one model fails or hits a rate limit, it automatically tries the next one:
-
-```
-1st → Gemini 2.0 Flash    (fastest, 15 req/min, 1M tokens/day — FREE)
-2nd → Gemini 1.5 Flash    (fallback, same limits — FREE)
-3rd → Gemini 1.5 Pro      (more powerful — FREE)
-4th → LLaMA 3.3 70B       (via OpenRouter — FREE)
-5th → Gemma 3 27B         (via OpenRouter — FREE)
-```
-
-### How Web Search Works
-
-The AI service automatically decides if a query needs real-time data:
-
-```javascript
-// Triggers web search when query contains:
-'today', 'news', 'latest', 'current', 'now', 'price',
-'bitcoin', 'weather', 'cricket', 'ipl', 'score',
-'prime minister', 'president', 'who is', 'trending' ...
-
-// If triggered:
-Query → Tavily Search → Top 4 results with sources
-      → Injected into system prompt
-      → AI answers with citations [1][2][3]
-```
-
----
-
-## 🔐 Authentication Flow
-
-```
-REGISTRATION
-────────────
-User fills form → POST /api/auth/register
-→ Password hashed with bcryptjs
-→ User saved to MongoDB (verified: false)
-→ JWT token generated (30 day expiry)
-→ Verification email sent with link:
-  {BACKEND_URL}/api/auth/verify-email?token={jwt}
-→ User sees "Check your email" message
-
-EMAIL VERIFICATION
-──────────────────
-User clicks email link → GET /api/auth/verify-email?token=...
-→ JWT decoded → user found in DB
-→ user.verified = true saved
-→ Beautiful success HTML page shown
-→ Auto-redirects to login after 4 seconds
+VERIFY EMAIL
+User clicks link in email
+  → JWT decoded on backend
+  → user.verified = true saved to DB
+  → Beautiful HTML success page with 4s auto-redirect to login
 
 LOGIN
-─────
-User submits credentials → POST /api/auth/login
-→ Email found in DB? No → 400 error
-→ Password matches bcrypt hash? No → 400 error
-→ Email verified? No → 403 error (with clear message)
-→ All pass → JWT cookie set (7 day expiry, httpOnly)
-→ User data returned → Redux state updated
-→ Redirect to /dashboard
+User submits credentials
+  → email found? → bcrypt.compare(password, hash)
+  → verified? → if not: 403 with clear message
+  → all pass → JWT signed (7 day expiry)
+  → set as HTTP-only cookie (secure in production)
+  → Redux updated → dashboard opens
 
-SESSION PERSISTENCE
-───────────────────
-Every app load → GET /api/auth/get-me
-→ JWT cookie sent automatically
-→ Server verifies → returns user data
-→ Redux hydrated → user stays logged in
+SESSION
+Every page load → GET /api/auth/get-me
+  → cookie sent automatically by browser
+  → JWT verified → user returned → stays logged in
 
 LOGOUT
-──────
-POST /api/auth/logout → cookie cleared → Redux reset → /login
+POST /api/auth/logout
+  → cookie cleared on server
+  → Redux reset → back to /login
 ```
 
 ---
 
-## 📡 API Reference
+## 🤖 How the AI Service Works
 
-### Auth Endpoints
+```javascript
+// Fallback chain in ai.service.js
+const MODEL_POOL = [
+  "Gemini 2.0 Flash",   // tries this first — fastest
+  "Gemini 1.5 Flash",   // if above fails
+  "Gemini 1.5 Pro",     // if above fails
+  "LLaMA 3.3 70B",      // if above fails
+  "Gemma 3 27B",        // last resort
+]
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/auth/register` | ❌ | Register new user |
-| `GET` | `/api/auth/verify-email?token=` | ❌ | Verify email address |
-| `POST` | `/api/auth/login` | ❌ | Login and get session cookie |
-| `POST` | `/api/auth/logout` | ❌ | Clear session cookie |
-| `GET` | `/api/auth/get-me` | ✅ | Get logged-in user profile |
-
-### Chat Endpoints
-
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/chats/message` | ✅ | Send message (creates new chat if no chatId) |
-| `GET` | `/api/chats` | ✅ | Get all chats for current user |
-| `GET` | `/api/chats/:chatId/messages` | ✅ | Get all messages in a chat |
-| `DELETE` | `/api/chats/delete/:chatId` | ✅ | Delete a chat and all its messages |
-| `POST` | `/api/chats/message/:messageId/feedback` | ✅ | Like or dislike a message |
-
-### Request / Response Examples
-
-**Register**
-```json
-POST /api/auth/register
-{
-  "username": "pramanik",
-  "email": "user@example.com",
-  "password": "SecurePass123!"
-}
-
-Response 201:
-{
-  "message": "User registered successfully. Please check your email.",
-  "success": true,
-  "user": { "id": "...", "username": "pramanik", "email": "...", "verified": false }
-}
-```
-
-**Send Message**
-```json
-POST /api/chats/message
-{
-  "message": "What is the latest news in AI?",
-  "chat": "64f1a2b3c4d5e6f7a8b9c0d1"   // optional, omit for new chat
-}
-
-Response 201:
-{
-  "chat": { "_id": "...", "title": "Latest AI News", "user": "..." },
-  "aiMessage": { "_id": "...", "content": "## Latest AI News\n...", "role": "ai" },
-  "title": "Latest AI News"
-}
+// For every message:
+1. Check if query needs web search (keyword detection)
+2. If yes → call Tavily → get top 4 results with sources
+3. Build system prompt (with or without search results)
+4. Send full conversation history to AI model
+5. If model fails → automatically try next one
+6. Return response
 ```
 
 ---
 
-## 🔑 Environment Variables
+## 📡 API Endpoints
 
-### Backend `.env`
+### Auth — `/api/auth`
 
-```env
-# Server
-PORT=3000
-NODE_ENV=development
+| Method | Route | Protected | Description |
+|--------|-------|-----------|-------------|
+| POST | `/register` | ❌ | Create new account |
+| GET | `/verify-email?token=` | ❌ | Verify email from link |
+| POST | `/login` | ❌ | Login and set session cookie |
+| POST | `/logout` | ❌ | Clear session cookie |
+| GET | `/get-me` | ✅ | Get current user from cookie |
 
-# Database
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/perplexity
+### Chat — `/api/chats`
 
-# Authentication
-JWT_SECRET=your_super_secret_jwt_key_minimum_32_chars
-
-# URLs (update for production)
-BACKEND_URL=http://localhost:3000
-FRONTEND_URL=http://localhost:5173
-
-# Email (Gmail OAuth2)
-GOOGLE_USER=youremail@gmail.com
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-GOOGLE_REFRESH_TOKEN=your_google_refresh_token
-
-# Alternative: Gmail App Password (simpler)
-# GMAIL_APP_PASSWORD=your_16_char_app_password
-
-# AI Services
-GEMINI_API_KEY=your_gemini_api_key        # aistudio.google.com (FREE)
-OPENROUTER_API_KEY=your_openrouter_key    # openrouter.ai (FREE)
-TAVILY_API_KEY=your_tavily_key            # tavily.com (1000/month FREE)
-```
-
-### Frontend `.env`
-
-```env
-VITE_API_URL=http://localhost:3000
-```
+| Method | Route | Protected | Description |
+|--------|-------|-----------|-------------|
+| POST | `/message` | ✅ | Send message — creates new chat if no chatId |
+| GET | `/` | ✅ | Get all chats for logged-in user |
+| GET | `/:chatId/messages` | ✅ | Get all messages in a chat |
+| DELETE | `/delete/:chatId` | ✅ | Delete chat and all its messages |
+| POST | `/message/:messageId/feedback` | ✅ | Like or dislike a message |
 
 ---
 
-## 🚀 Getting Started
+## ⚙️ Running Locally
 
 ### Prerequisites
+- Node.js v18+
+- A MongoDB Atlas account (free)
+- A Gemini API key from [aistudio.google.com](https://aistudio.google.com) (free)
+- A Tavily API key from [tavily.com](https://tavily.com) (free)
 
-- Node.js v18 or higher
-- npm v9 or higher
-- MongoDB Atlas account (free)
-- Git
-
-### 1. Clone the Repository
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/Pramanik26458/software-engineering-journey.git
 cd software-engineering-journey/Projects/perplexity
 ```
 
-### 2. Setup Backend
+### 2. Setup backend
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` folder and fill in all variables from the [Environment Variables](#-environment-variables) section above.
+Create a `.env` file inside `backend/`:
+
+```env
+PORT=3000
+NODE_ENV=development
+MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/perplexity
+JWT_SECRET=your_long_random_secret_here
+BACKEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:5173
+
+# Email
+GOOGLE_USER=yourgmail@gmail.com
+GMAIL_APP_PASSWORD=your_16_char_app_password
+
+# AI
+GEMINI_API_KEY=your_gemini_key
+OPENROUTER_API_KEY=your_openrouter_key
+TAVILY_API_KEY=your_tavily_key
+```
 
 ```bash
-# Start development server
 npm run dev
 ```
 
-Backend will start at `http://localhost:3000`
-
-You should see:
-```
-✓ Socket.IO server initialized
-✅ Email service ready
-MongoDB Connected: your-cluster-name
-✓ Database connected successfully
-✓ Server is running on port 3000
-✓ AI pool (all free): Gemini 2.0 Flash → Gemini 1.5 Flash → ...
-```
-
-### 3. Setup Frontend
+### 3. Setup frontend
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-Create a `.env` file in the `frontend` folder:
+Create a `.env` file inside `frontend/`:
 
 ```env
 VITE_API_URL=http://localhost:3000
 ```
 
 ```bash
-# Start development server
 npm run dev
 ```
 
-Frontend will start at `http://localhost:5173`
-
-### 4. Open in Browser
-
-Visit `http://localhost:5173` and:
-1. Register an account
-2. Check your email and click the verification link
-3. Log in
-4. Start chatting with the AI
+Open [http://localhost:5173](http://localhost:5173)
 
 ---
 
 ## ☁️ Deployment
 
-### Deploy Backend to Render
+| Service | Platform | Config |
+|---------|----------|--------|
+| Frontend | Vercel | Root: `frontend`, Build: `npm run build`, Output: `dist` |
+| Backend | Render | Root: `backend`, Build: `npm install`, Start: `node server.js` |
+| Database | MongoDB Atlas | Free M0 cluster, IP whitelist: `0.0.0.0/0` |
 
-1. Push your code to GitHub
-2. Go to [render.com](https://render.com) → New → Web Service
-3. Connect your GitHub repository
-4. Configure:
-
-```
-Root Directory:  backend
-Runtime:         Node
-Build Command:   npm install
-Start Command:   node server.js
-```
-
-5. Add all environment variables from the backend `.env` section
-6. Set `NODE_ENV=production`
-7. Deploy and copy your Render URL
-
-### Deploy Frontend to Vercel
-
-1. Go to [vercel.com](https://vercel.com) → New Project
-2. Import your GitHub repository
-3. Configure:
-
-```
-Root Directory:    frontend
-Framework Preset:  Vite
-Build Command:     npm run build
-Output Directory:  dist
-```
-
-4. Add environment variable:
-```
-VITE_API_URL = https://your-render-url.onrender.com
-```
-
-5. Deploy and copy your Vercel URL
-
-### Final Step — Update CORS
-
-Go back to Render → Environment → update:
-```
-FRONTEND_URL = https://your-app.vercel.app
-BACKEND_URL  = https://your-render-url.onrender.com
-```
-
-Save and redeploy. Your app is now live.
-
-### Deployment Checklist
-
-- [ ] `MONGODB_URI` set and Atlas IP whitelist includes `0.0.0.0/0`
-- [ ] `JWT_SECRET` set to a strong random string
-- [ ] `BACKEND_URL` set to actual Render URL (not localhost)
-- [ ] `FRONTEND_URL` set to actual Vercel URL (not localhost)
-- [ ] `VITE_API_URL` set in Vercel environment variables
-- [ ] `NODE_ENV=production` set on Render
-- [ ] Gmail credentials or App Password configured
-- [ ] Gemini API key configured
-- [ ] Tavily API key configured
-- [ ] Frontend redeployed after adding `VITE_API_URL`
-- [ ] Backend redeployed after adding `FRONTEND_URL`
+**Important:** After deploying both, set `VITE_API_URL` on Vercel to your Render URL and `FRONTEND_URL` on Render to your Vercel URL. Without this CORS will block all requests.
 
 ---
 
-## 🗂 Database Schema
+## 🔒 Security
 
-### User
-```javascript
-{
-  username:  String  // unique, required
-  email:     String  // unique, required
-  password:  String  // bcrypt hashed
-  verified:  Boolean // false until email verified
-  createdAt: Date
-  updatedAt: Date
-}
-```
-
-### Chat
-```javascript
-{
-  user:      ObjectId  // ref: User
-  title:     String    // AI-generated from first message
-  createdAt: Date
-  updatedAt: Date
-}
-```
-
-### Message
-```javascript
-{
-  chat:      ObjectId  // ref: Chat
-  content:   String    // message text (Markdown for AI messages)
-  role:      String    // 'user' | 'ai'
-  createdAt: Date
-  updatedAt: Date
-}
-```
+- **HTTP-only cookies** for JWT — JavaScript can't read them, protects against XSS
+- **bcryptjs with 10 salt rounds** — makes brute force attacks expensive
+- **Email verification required** — accounts can't be used without verifying
+- **Cookie is `secure: true` in production** — only sent over HTTPS
+- **`sameSite: none` in production** — required for cross-domain cookies (Vercel → Render)
+- **User ownership check on every query** — users can only access their own chats
+- **CORS restricted** to only my Vercel domain
 
 ---
 
-## 🔒 Security Features
+## 🧠 What I Learned Building This
 
-- Passwords hashed using **bcryptjs** (salt rounds: 10)
-- Sessions stored in **HTTP-only cookies** (not accessible via JavaScript)
-- **JWT** used for both session tokens and email verification tokens
-- Cookie set to `secure: true` and `sameSite: none` in production
-- Email verification required before dashboard access
-- All chat routes protected by auth middleware
-- Users can only access their own chats (MongoDB query includes `user: req.user.id`)
-- CORS configured to allow only your specific frontend domain
-- Input validation using **express-validator** on all auth routes
-
----
-
-## 🤝 Contributing
-
-This is a personal placement project. If you'd like to suggest improvements:
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+- How JWT authentication works end to end
+- Why HTTP-only cookies are safer than localStorage for session tokens
+- How LangChain abstracts different AI providers behind one interface
+- How to build a model fallback chain that degrades gracefully
+- How to configure CORS correctly for cross-domain deployments
+- How Vite bakes environment variables into the bundle at build time
+- Why `NODE_ENV=production` matters for cookie security settings
+- How Socket.IO works alongside a regular Express HTTP server
 
 ---
 
 ## 👨‍💻 Author
 
 **Basak Pramanik**
-4th Year Computer Science Engineering Student
+4th Year B.Tech — Computer Science Engineering
 
 [![GitHub](https://img.shields.io/badge/GitHub-Pramanik26458-black?style=flat&logo=github)](https://github.com/Pramanik26458)
 
@@ -664,8 +415,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
 
-**⭐ If you found this project helpful, please give it a star!**
-
-Built with ❤️ as a major placement project
+If you found this project useful or interesting, please consider giving it a ⭐
 
 </div>
